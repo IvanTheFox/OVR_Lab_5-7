@@ -1,0 +1,31 @@
+body {
+    font-size-adjust: 0.8;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+button {
+    border: black 2px solid;
+    font-size-adjust: 0.8; 
+    border-radius: 20%;
+    box-shadow: 5px 5px;
+}
+
+input {
+    font-size-adjust: 0.8;
+}
+
+center {
+    display: flex;
+    flex-direction: column;
+    margin: 25vh;
+    border: black 5px solid;
+    width: 35vw;
+    border-radius: 15%;
+    box-shadow: 10px 10px;
+}
+
+center div {
+    margin-bottom: 15px;
+}

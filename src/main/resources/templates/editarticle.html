@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Редактирование новости</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/news_style.css}">
+    </head>
+    <body>
+        <div id="top-bar">
+            <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
+            <div id="nonuniname">
+                <div id="server-info">
+                    <p>Серверное время: <span id="server-time">18:00:00</span></p>
+                    <p>Количество посещений: <span id="visits">20</span></p>
+                </div>
+                <button class="tab">Новости</button>
+                <button class="tab">Расписание</button>
+                <button id="profiletab">Личный кабинет</button>
+            </div>
+        </div>
+        <div id="editor-container">
+            <div class="article">
+                <div class="article-content">
+                    <form th:action="@{/index}" method="post">
+                        <h2><input id="article-title" value="Заголовок" required></h2>
+                        <textarea id="article-text" rows="15" maxlength="3000" required>Содержание</textarea><br>
+                        <input type="file" id="article-image"><br>
+                        <center><button type="submit" class="cool-btn">Завершить редактирование</button></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

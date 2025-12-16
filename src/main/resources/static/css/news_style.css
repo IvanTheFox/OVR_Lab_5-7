@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+}
+
+#top-bar {
+    background-color: darkgreen;
+    position: sticky;
+    display: flex;
+    font-family: Georgia;
+    font-size: 30px;
+    justify-content:space-between;
+    
+}
+
+#nonuniname {
+    display: flex;
+    justify-content: end;
+}
+
+#uniname {
+    text-align: center;
+    color: wheat;
+    margin: 40px;
+}
+
+.tab {
+    width: 200px;
+    font-family: Georgia;
+    font-size: 30px;
+    background-color: transparent;
+    border-style:solid;
+    border-color: wheat;
+    border-width: 5px;
+    
+}
+
+.tab:hover {
+    background-color:#055000;
+}
+
+#profiletab {
+    background-color:#999999;
+    font-family: Georgia;
+    font-size: 30px;
+    border: black 5px solid;
+    margin-left: 0vw;
+}
+
+#profiletab:hover {
+    background-color:#888888;
+    
+}
+
+#newscolumn {
+    margin-left: 15vw;
+    margin-right: 15vw;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.article-content {
+    min-height: 400px;
+    padding: 5px;
+    background-color: azure;
+    border: black 3px dashed;
+}
+
+.news-creator {
+    display: flex;
+    height:80px;
+    background-color: azure;
+    border: black 3px solid;
+}
+
+.article {
+    margin-top: 10px;
+    width:80%;
+    display:flex;
+    flex-direction: column;
+}
+
+#news-header {
+    background-color: #99ccf6;
+    border: lightgrey 5px groove;
+    width:100%;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.news-creator img {
+    height:60px;
+    width:60px;
+    margin:20px;
+}
+
+.new-description {
+    padding-top:10px;
+}
+
+.new-description b {
+    font-size: 30px;
+}
+
+.new-description p {
+    margin: 0;
+}
+
+.article-content p {
+    text-align:justify;
+}
+
+.article-content img {
+    width:100%;
+}
+
+#server-info {
+    align-self:center;
+    font-size: 20px;
+    text-align:right;
+}
+
+#editor-container {
+    margin-left:15vw;
+    margin-right:15vw;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+#article-title {
+    font:inherit;
+}
+
+#article-text {
+    width:99%;
+    font:inherit;
+    resize: none;
+}
+
+#edit-submit {
+    margin-top: 20px;
+    background-color: azure;
+    font-size:18px;
+}
+
+.cool-btn {
+    margin-top: 20px;
+    background-color: azure;
+    font-size:18px;
+}

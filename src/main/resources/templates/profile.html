@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>ЭИОС</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/news_style.css}">
+        <link rel="stylesheet" th:href="@{/css/profile_style.css}">
+    </head>
+    <body>
+        <div id="top-bar">
+            <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
+            <div id="nonuniname">
+                <div id="server-info">
+                    <p>Серверное время: <span id="server-time">18:00:00</span></p>
+                    <p>Количество посещений: <span id="visits">20</span></p>
+                </div>
+                <button class="tab">Новости</button>
+                <button class="tab">Расписание</button>
+                <button id="profiletab">Личный кабинет</button>
+            </div>
+        </div>
+        <div id="profile-container">
+            <h2>Добро пожаловать, <span th:text="${username}"></span>!</h2>
+            <img th:src="@{'uploads/avatars/'+${avatar}}" alt="foto">
+            <form th:acition="@{/profile/upload}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" class="cool-btn"><br>
+                <button type="submit" class="cool-btn">Изменить аватар</button>
+            </form>
+            <div th:if="${fileError}" style="color:red;">
+                <p th:text="${fileError}"></p>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="cool-btn">Выйти из аккаунта</button>
+            </form>
+        </div>
+    </body>
+</html>
