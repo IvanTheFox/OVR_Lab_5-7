@@ -31,7 +31,7 @@ body {
     border-style:solid;
     border-color: wheat;
     border-width: 5px;
-    
+    height:100%;
 }
 
 .tab:hover {
@@ -44,6 +44,7 @@ body {
     font-size: 30px;
     border: black 5px solid;
     margin-left: 0vw;
+    height:100%;
 }
 
 #profiletab:hover {
