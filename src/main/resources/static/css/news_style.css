@@ -24,14 +24,14 @@ body {
 }
 
 .tab {
-    width: 200px;
+    width: 180px;
     font-family: Georgia;
     font-size: 30px;
     background-color: transparent;
     border-style:solid;
     border-color: wheat;
     border-width: 5px;
-    
+    height:100%;
 }
 
 .tab:hover {
@@ -44,6 +44,7 @@ body {
     font-size: 30px;
     border: black 5px solid;
     margin-left: 0vw;
+    height:100%;
 }
 
 #profiletab:hover {
@@ -153,4 +154,9 @@ body {
     margin-top: 20px;
     background-color: azure;
     font-size:18px;
+}
+
+#editor-controller {
+    display: flex;
+    justify-items: center;
 }

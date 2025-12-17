@@ -5,31 +5,53 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
+        <script src="../static/js/time_fetcher.js"></script>
     </head>
     <body>
         <div id="top-bar">
             <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
             <div id="nonuniname">
                 <div id="server-info">
-                    <p>Серверное время: <span id="server-time">18:00:00</span></p>
-                    <p>Количество посещений: <span id="visits">20</span></p>
+                    <p>Серверное время: <span id="server-time"></span></p>
+                    <p>Количество посещений: <span id="visits" th:text="${user.loginCount}"></span></p>
                 </div>
-                <button class="tab">Новости</button>
-                <button class="tab">Расписание</button>
-                <button id="profiletab">Личный кабинет</button>
+                <form th:if="${user.role.permLevel>0}" th:action="@{/editarticle}">
+                    <button class="tab" type="submit">Редактор новостей</button>
+                </form>
+                <form th:action="@{/index}">
+                    <button class="tab" type="submit">Новости</button>
+                </form>
+                <form>
+                    <button class="tab">Расписание</button>
+                </form>
+                <form th:action="@{/profile}">
+                    <button id="profiletab">Личный кабинет</button>
+                </form>
             </div>
         </div>
         <div id="editor-container">
-            <div class="article">
-                <div class="article-content">
-                    <form th:action="@{/index}" method="post">
+            <form method="post">
+                <div id="editor-controller">
+                    <input type="text" id="news-id" name="news_id">
+                    <button id="get-edit-news">Загрузить новость</button>
+                    <button type="submit" formaction="/editnews" id="change-edit-news">Изменить новость</button>
+                    <button type="submit" formaction="/newnews" id="make-new-news">Создать новость</button>
+                </div>
+                <span th:if="${errorMessage}" style="color:red; font-size: 10px;">
+                    <p th:text="${errorMessage}"></p>
+                </span>
+                <div class="article">
+                    <div class="article-content">
                         <h2><input id="article-title" value="Заголовок" required></h2>
                         <textarea id="article-text" rows="15" maxlength="3000" required>Содержание</textarea><br>
-                        <input type="file" id="article-image"><br>
-                        <center><button type="submit" class="cool-btn">Завершить редактирование</button></center>
-                    </form>
+                        <div class="new-image">
+                            <input type="file" id="article-image"><br>
+                            <button>X</button>
+                        </div>
+                        <button id="add-image">Добавить картинку</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </body>
 </html>

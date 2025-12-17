@@ -9,17 +9,20 @@
     <body>
         <center>
             <h2>Регистрация</h2>
-            <span th:if="${error}" style="color:red;">
-                <p th:text="${error}"></p>
-            </span>
             <form th:action="@{/register}" method="post">
                 <div>
                     <label>Имя(Логин)</label>
                     <input type="text" name="username"><br>
+                    <span th:if="${usernameError}" style="color:red; font-size: 10px;">
+                        <p th:text="${usernameError}"></p>
+                    </span>
                 </div>    
                 <div>
                     <label>Пароль</label>
                     <input type="text" name="password"><br>
+                    <span th:if="${passwordError}" style="color:red; font-size: 10px;">
+                        <p th:text="${passwordError}"></p>
+                    </span>
                 </div>
                 <div>
                     <label>Роль</label><br>
