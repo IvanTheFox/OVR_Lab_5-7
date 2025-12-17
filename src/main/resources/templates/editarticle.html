@@ -14,6 +14,9 @@
                     <p>Серверное время: <span id="server-time">18:00:00</span></p>
                     <p>Количество посещений: <span id="visits">20</span></p>
                 </div>
+                <form th:if="${permLevel>0}" th:action="@{/editarticle}">
+                    <button class="tab" type="submit">Редактор новостей</button>
+                </form>
                 <form th:action="@{/index}">
                     <button class="tab" type="submit">Новости</button>
                 </form>
@@ -26,6 +29,15 @@
             </div>
         </div>
         <div id="editor-container">
+            <div id="editor-controller">
+                <input type="text" id="news-id">
+                <button>Загрузить новость</button>
+                <button>Изменить новость</button>
+                <button>Создать новость</button>
+            </div>
+            <span th:if="${errorMessage}" style="color:red; font-size: 10px;">
+                <p th:text="${errorMessage}"></p>
+            </span>
             <div class="article">
                 <div class="article-content">
                     <form th:action="@{/index}" method="post">

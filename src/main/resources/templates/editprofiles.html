@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Лента новостей</title>
+        <title>Редактирование новости</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
-        <script src="../js/fetch_user.js"></script>
-        <script src="../js/news_builder.js"></script>
-        
     </head>
     <body>
         <div id="top-bar">
@@ -17,7 +14,7 @@
                     <p>Серверное время: <span id="server-time">18:00:00</span></p>
                     <p>Количество посещений: <span id="visits">20</span></p>
                 </div>
-                <form th:if="${permLevel>0}" th:action="@{/editarticle}">
+                <form th:if="${user.role.permLevel>0}" th:action="@{/editarticle}">
                     <button class="tab" type="submit">Редактор новостей</button>
                 </form>
                 <form th:action="@{/index}">
@@ -31,25 +28,8 @@
                 </form>
             </div>
         </div>
-        <div id="newscolumn">
-            <div id="news-header">
-                <span style="font-size:24px">Новостная лента</span>
-            </div>
-            <div class="article">
-                <div class="news-creator">
-                    <img alt="pfp" src="">
-                    <div class="new-description">
-                        <b>Пиздец</b>
-                        <p>hihihihihihi</p>
-                    </div>
-                </div>
-                <div class="article-content">
-                    <h2>Доброе утро с новым ходом</h2>
-                    <p>vaivisbiwngwehiovwkfkekpwkaj;wngjwbjwbwnbfnbldnobsnkbnkbnekbnfejovjejnfejbnebnfenbkb vej;akjbvjfenjo wkenokewnbknkosefnkb</p>
-                    <img src="" alt="hello">
-                </div>
-            </div>
-            <button id="loadmore-btn" class="cool-btn">Загрузить больше новостей</button>
+        <div>
+
         </div>
     </body>
 </html>

@@ -24,7 +24,7 @@ body {
 }
 
 .tab {
-    width: 200px;
+    width: 180px;
     font-family: Georgia;
     font-size: 30px;
     background-color: transparent;
@@ -154,4 +154,9 @@ body {
     margin-top: 20px;
     background-color: azure;
     font-size:18px;
+}
+
+#editor-controller {
+    display: flex;
+    justify-items: center;
 }

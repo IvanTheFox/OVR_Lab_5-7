@@ -9,8 +9,8 @@
     <body>
         <center>
             <h2>Вход</h2>
-            <span th:if="${error}" style="color:red;">
-                <p th:text="${error}"></p>
+            <span th:if="${errorMessage}" style="color:red; font-size: 10px;">
+                <p th:text="${errorMessage}"></p>
             </span>
             <form th:action="@{/login}" method="post">
                 <div>
