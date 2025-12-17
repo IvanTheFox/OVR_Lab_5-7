@@ -30,8 +30,7 @@ public class ProfileController {
             return "redirect:/login";
         
         User user = _user.get();
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("avatar", user.getAvatar());
+        model.addAttribute("user", user);
 
         return "profile";
     }

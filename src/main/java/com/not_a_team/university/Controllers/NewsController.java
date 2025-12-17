@@ -29,6 +29,20 @@ public class NewsController {
             return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/prevnewsinfo/{id}")
+    public ResponseEntity<News> getPreviousNews(@PathVariable Long id) {
+        Optional<News> news;
+        if (id == -1)
+            news = newsService.getLatestNews();
+        else
+            news = newsService.getPreviousNews(id);
+
+        if (news.isPresent())
+            return ResponseEntity.ok(news.get());
+        else
+            return ResponseEntity.notFound().build();
+    }
+
     @PostMapping("/editarticle")
     public void publishArticle() {
         

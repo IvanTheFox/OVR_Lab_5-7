@@ -1,7 +1,6 @@
 package com.not_a_team.university.Entities;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,16 +16,20 @@ import jakarta.persistence.Table;
 @Table(name = "news")
 public class News {
     private static String picturesPath = "uploads\\news_pictures\\";
+    private static final int maxPictureCount = 5;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
     private Long author;
-    private ArrayList<String> pictures;
+    private Long publishTime;
+    private int pictureCount;
+    private String[] pictures;
 
     public News() {
-        pictures = new ArrayList<String>();
+        pictures = new String[maxPictureCount];
+        publishTime = System.currentTimeMillis() / 1000L;
     }
     public News(Long author) {
         this();
@@ -55,33 +58,48 @@ public class News {
     public void setAuthor(Long author) {
         this.author = author;
     }
+    // Publish time
+    public Long getPublishTime() {
+        return this.publishTime;
+    }
+    public void setPublishTime(Long publishTime) {
+        this.publishTime = publishTime;
+    }
 
     // -- Picture management
     // Adding pictures
     public void addPicture(String picturePath) {
-        this.pictures.add(picturePath);
+        if (pictureCount < maxPictureCount) {
+            pictures[pictureCount] = picturePath;
+            pictureCount++;
+        }
     }
     public void addPicture(MultipartFile picture) throws IOException {
         int i = 0;
-        String pictureName = this.id + "-" + getPictureCount();
+        String pictureName = this.id + "-" + pictureCount;
         while (FileService.findFileByName(pictureName, picturesPath)) {
             i++;
-            pictureName = this.id + "-" + (getPictureCount() + i);
+            pictureName = this.id + "-" + (pictureCount + i);
         }
-        this.pictures.add(FileService.saveFile(picture, picturesPath, pictureName));
+        addPicture(FileService.saveFile(picture, picturesPath, pictureName));
     }
     // Removing pictures
-    public void removePicture(String picturePath) {
-        this.pictures.remove(picturePath);
-    }
     public void removePicture(int pictureId) {
-        this.pictures.remove(pictureId);
+        for (int i = pictureId; i < maxPictureCount - 1; i++)
+            pictures[i] = pictures[i + 1];
+        pictures[maxPictureCount - 1] = null;
+        pictureCount--;
+    }
+    public void removePicture(String picturePath) {
+        for (int i = 0; i < pictureCount; i++) {
+            if (pictures[i].equals(picturePath)) {
+                removePicture(i);
+                break;
+            }
+        }
     }
     public void clearPictures() {
-        this.pictures.clear();
-    }
-    // Picture info
-    public int getPictureCount() {
-        return this.pictures.size();
+        for (int i = 0; i < pictureCount; i++)
+            pictures[i] = null;
     }
 }
