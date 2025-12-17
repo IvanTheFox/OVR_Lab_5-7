@@ -28,7 +28,6 @@ public class LoginController {
     @GetMapping("/login")
     public String loginPath(HttpSession session, Model model, @RequestParam(required = false) boolean error) {
         if (userService.getUserBySession(session).isPresent()) {
-            System.out.println("Found active session!");
             return "redirect:/profile";
         }
 

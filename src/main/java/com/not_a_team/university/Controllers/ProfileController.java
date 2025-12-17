@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,14 +36,13 @@ public class ProfileController {
         return "profile";
     }
 
-    @Transactional
     @PostMapping("/profile")
     public String avatarUpload(HttpSession session, Model model, MultipartFile file) {
         User user = userService.getUserBySession(session).get();
 
         try {
             user.setAvatar(file);
-            userService.saveUser(user);
+            userService.saveUserAndCommit(user);
         } catch (IOException exception) {
             System.out.println("Failed to upload avatar image.");
             model.addAttribute("fileError", exception.getMessage());
@@ -67,7 +65,6 @@ public class ProfileController {
             System.out.println(exception.getMessage());
         };
 
-        System.out.println("Logged out");
         return "redirect:/login";
     }
 }

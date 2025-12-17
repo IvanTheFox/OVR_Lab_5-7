@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Repositories.UserRepository;
@@ -22,6 +23,7 @@ public class UserService {
     }
 
     // Manage users
+    @Transactional
     public void saveUserAndCommit(User user) {
         userRepository.saveAndFlush(user);
     }

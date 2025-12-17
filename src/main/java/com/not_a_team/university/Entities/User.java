@@ -56,7 +56,6 @@ public class User {
     // -- Session management
     // Adding a new session
     public void addSesseion(String sessionId) {
-        System.out.println("Adding session <" + sessionId + "> for " + this.name);
         if (!this.sessions.contains(sessionId))
             this.sessions.add(sessionId);
     }
@@ -72,7 +71,6 @@ public class User {
     }
     // Logout from a session
     public void removeSession(String sessionId) throws NoSessionFound {
-        System.out.println("Removing session <" + sessionId + "> for " + this.name);
         if (this.sessions.contains(sessionId))
             this.sessions.remove(sessionId);
         else
