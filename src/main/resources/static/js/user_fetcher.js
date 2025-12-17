@@ -1,4 +1,4 @@
-async function fetchUserById(id) {
+export async function fetchUserById(id) {
     try {
         const response = await fetch(`http://localhost:8080/userinfobyid/${id}`); 
         if (!response.ok) {
@@ -11,7 +11,7 @@ async function fetchUserById(id) {
     }
 }
 
-async function fetchUserByName(name) {
+export async function fetchUserByName(name) {
     try {
         const response = await fetch(`http://localhost:8080/userinfobyname/${name}`); 
         if (!response.ok) {

@@ -5,14 +5,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
+        <script src="../static/js/time_fetcher.js"></script>
     </head>
     <body>
         <div id="top-bar">
             <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
             <div id="nonuniname">
                 <div id="server-info">
-                    <p>Серверное время: <span id="server-time">18:00:00</span></p>
-                    <p>Количество посещений: <span id="visits">20</span></p>
+                    <p>Серверное время: <span id="server-time"></span></p>
+                    <p>Количество посещений: <span id="visits" th:text="${user.loginCount}"></span></p>
                 </div>
                 <form th:if="${user.role.permLevel>0}" th:action="@{/editarticle}">
                     <button class="tab" type="submit">Редактор новостей</button>
@@ -28,8 +29,13 @@
                 </form>
             </div>
         </div>
-        <div>
-
+        <div id="editor-container">
+            <div id="editor-controller">
+                <input type="text" id="username">
+                <button>Получить пользователя по имени</button>
+                <button>Получить пользователя по идентификатору</button>
+                <button>Создать пользователя</button>
+            </div>
         </div>
     </body>
 </html>

@@ -1,4 +1,6 @@
-async function fetchNewsByPrev(num) {
+import * as ufetch from "./user_fetcher"
+
+export async function fetchNewsByPrev(num) {
     try {
         const response = await fetch(`http://localhost:8080/prevnewsinfo/${num}`);
         if (!response.ok) {
@@ -11,7 +13,7 @@ async function fetchNewsByPrev(num) {
     }
 }
 
-async function fetchNewsById(id) {
+export async function fetchNewsById(id) {
     try {
         const response = await fetch(`http://localhost:8080/newsinfo/${id}`);
         if (!response.ok) {
@@ -24,8 +26,8 @@ async function fetchNewsById(id) {
     }
 }
 
-async function buildNews(news) {
-    let author = fetchUser(news.author);
+export async function buildNews(news) {
+    let author = ufetch.fetchUser(news.author);
     let temp = document.createElement("div");
     temp.setAttribute("class", "news-creator");
     let temp2 = document.createElement("img");
@@ -52,6 +54,11 @@ async function buildNews(news) {
     temp2 = document.createElement("p");
     temp2.innerHTML = news.text;
     temp.appendChild(temp2);
+    temp2 = document.createElement("p");
+    temp2.setAttribute("th:if", "${user.role.permLevel>0}");
+    temp2.id="news-id";
+    temp2.innerHTML = `ID=${news.id}`;
+    temp.appendChild(temp2);
     news.pictures.forEach(picPath => {
         temp2 = document.createElement("img");
         temp2.setAttribute("src", picPath);
@@ -62,13 +69,3 @@ async function buildNews(news) {
     return news.id;
 }
 
-for (let i=0, j=-1; i<5; i++) {
-    let news = fetchNewsByPrev(j);
-    j = buildNews(news);
-}
-document.getElementById("loadmore-btn").addEventListener("click", ()=>{
-    for (let i=0, j=-1; i<5; i++) {
-        let news = fetchNewsByPrev(j);
-        j = buildNews(news);
-    }
-});
