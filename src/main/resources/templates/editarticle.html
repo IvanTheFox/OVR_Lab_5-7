@@ -14,9 +14,15 @@
                     <p>Серверное время: <span id="server-time">18:00:00</span></p>
                     <p>Количество посещений: <span id="visits">20</span></p>
                 </div>
-                <button class="tab">Новости</button>
-                <button class="tab">Расписание</button>
-                <button id="profiletab">Личный кабинет</button>
+                <form th:action="@{/index}">
+                    <button class="tab" type="submit">Новости</button>
+                </form>
+                <form>
+                    <button class="tab">Расписание</button>
+                </form>
+                <form th:action="@{/profile}">
+                    <button id="profiletab">Личный кабинет</button>
+                </form>
             </div>
         </div>
         <div id="editor-container">
