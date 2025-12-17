@@ -28,6 +28,7 @@ public class User {
     private Role role;
     private ArrayList<String> sessions;
     private String avatar;
+    private int loginCount;
 
     public User() {}
     public User(String name, String password, Role role) {
@@ -51,33 +52,6 @@ public class User {
         this.sessions = new ArrayList<String>();
         
         this.addSesseion(session.getId());
-    }
-
-    // -- Session management
-    // Adding a new session
-    public void addSesseion(String sessionId) {
-        if (!this.sessions.contains(sessionId))
-            this.sessions.add(sessionId);
-    }
-    public void addSesseion(HttpSession session) {
-        addSesseion(session.getId());
-    }
-    // Look for a session
-    public boolean findSession(String sessionId) {
-        return this.sessions.contains(sessionId);
-    }
-    public boolean findSession(HttpSession session) {
-        return this.findSession(session.getId());
-    }
-    // Logout from a session
-    public void removeSession(String sessionId) throws NoSessionFound {
-        if (this.sessions.contains(sessionId))
-            this.sessions.remove(sessionId);
-        else
-            throw new NoSessionFound(sessionId);
-    }
-    public void removeSession(HttpSession session) throws NoSessionFound {
-        removeSession(session.getId());
     }
     
     // -- Setters & getters
@@ -109,6 +83,13 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+    // Login count
+    public int getLoginCount() {
+        return this.loginCount;
+    }
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
     // Avatar
     public String getAvatar() {
         return this.avatar;
@@ -121,6 +102,35 @@ public class User {
             FileService.deleteFile(avatarPath + this.avatar);
         String fileName = Long.toString(this.id);
         this.avatar = FileService.saveFile(file, avatarPath, fileName);
+    }
+
+    // -- Session management
+    // Adding a new session
+    public void addSesseion(String sessionId) {
+        if (!this.sessions.contains(sessionId)) {
+            this.sessions.add(sessionId);
+            loginCount++;
+        }
+    }
+    public void addSesseion(HttpSession session) {
+        addSesseion(session.getId());
+    }
+    // Look for a session
+    public boolean findSession(String sessionId) {
+        return this.sessions.contains(sessionId);
+    }
+    public boolean findSession(HttpSession session) {
+        return this.findSession(session.getId());
+    }
+    // Logout from a session
+    public void removeSession(String sessionId) throws NoSessionFound {
+        if (this.sessions.contains(sessionId))
+            this.sessions.remove(sessionId);
+        else
+            throw new NoSessionFound(sessionId);
+    }
+    public void removeSession(HttpSession session) throws NoSessionFound {
+        removeSession(session.getId());
     }
 
     // Exceptions

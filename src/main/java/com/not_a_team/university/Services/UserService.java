@@ -49,9 +49,8 @@ public class UserService {
     public Optional<User> getUserBySession(String sessionId) {
         ArrayList<User> users = new ArrayList<User>(this.getAllUsers());
         for (User user : users) {
-            if (user.findSession(sessionId)) {
+            if (user.findSession(sessionId))
                 return Optional.of(user);
-            }
         }
         return Optional.empty();
     }
