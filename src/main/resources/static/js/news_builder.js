@@ -1,8 +1,8 @@
 import * as ufetch from "./user_fetcher"
 
-export async function fetchNewsByPrev(num) {
+export async function fetchNewsByPrev(id_prev) {
     try {
-        const response = await fetch(`http://localhost:8080/prevnewsinfo/${num}`);
+        const response = await fetch(`http://localhost:8089/prevnewsinfo/?id=${id_prev}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -15,7 +15,7 @@ export async function fetchNewsByPrev(num) {
 
 export async function fetchNewsById(id) {
     try {
-        const response = await fetch(`http://localhost:8080/newsinfo/${id}`);
+        const response = await fetch(`http://localhost:8089/newsinfo/?id=${id}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -69,3 +69,17 @@ export async function buildNews(news) {
     return news.id;
 }
 
+export async function buildNewsEditor(news){
+    let article = document.getElementsByClassName("article-content");
+    let imagesHTML=""
+    news.pictures.forEach(picPath => {
+        imagesHTML+='<div class="news-image">'+
+        `<input type="file" class="article-image" value=${picPath}><br>`+
+        '<button class="del-image">X</button>'+
+        '</div>';
+    })
+    article.innerHTML=`<h2><input id="article-title" required>${news.title}</h2>
+        <textarea id="article-text" rows="15" maxlength="3000" required>${news.text}</textarea><br>
+        ${imagesHTML}
+        <button id="add-image">Добавить картинку</button>`;
+}

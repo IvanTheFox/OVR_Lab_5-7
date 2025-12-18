@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
         <link rel="stylesheet" th:href="@{/css/profile_style.css}">
-        <script src="../static/js/time_fetcher.js"></script>
+        <script th:src="@{/js/time_fetcher.js}"></script>
     </head>
     <body>
         <div id="top-bar">
-            <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
+            <center style="width:35%"><div id="uniname">Unusual Government University</div></center>
             <div id="nonuniname">
                 <div id="server-info">
                     <p>Серверное время: <span id="server-time"></span></p>
@@ -31,8 +31,8 @@
             </div>
         </div>
         <div id="profile-container">
-            <h2>Добро пожаловать, <span th:text="${username}"></span>!</h2>
-            <img th:src="@{'uploads/avatars/'+${avatar}}" alt="foto" id="pfp-self">
+            <h2>Добро пожаловать, <span th:text="${user.getUsername()}"></span>!</h2>
+            <img th:src="@{'uploads/avatars/'+${user.getAvatar()}}" alt="foto" id="pfp-self">
             <form th:acition="@{/profile/upload}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" class="cool-btn"><br>
                 <button type="submit" class="cool-btn">Изменить аватар</button>
@@ -40,6 +40,9 @@
             <div th:if="${fileError}" style="color:red;">
                 <p th:text="${fileError}"></p>
             </div>
+            <form th:if="${user.role.permLevel>1}" th:action="@{/editprofiles}">
+                <button type="submit" class="cool-btn">Открыть редактор пользователей</button>
+            </form>
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="cool-btn">Выйти из аккаунта</button>
             </form>
