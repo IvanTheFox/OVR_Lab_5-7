@@ -1,6 +1,6 @@
 export async function fetchUserById(id) {
     try {
-        const response = await fetch(`http://localhost:8080/userinfobyid/${id}`); 
+        const response = await fetch(`http://localhost:8089/userinfobyid/?id=${id}`); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -13,7 +13,7 @@ export async function fetchUserById(id) {
 
 export async function fetchUserByName(name) {
     try {
-        const response = await fetch(`http://localhost:8080/userinfobyname/${name}`); 
+        const response = await fetch(`http://localhost:8089/userinfobyname/?name=${name}`); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

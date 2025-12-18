@@ -5,7 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
-        <script src="../static/js/time_fetcher.js"></script>
+        <link rel="stylesheet" th:href="@{/css/news_editor_style.css}">
+        <script th:src="@{/js/time_fetcher.js}"></script>
+        <script ></script>
     </head>
     <body>
         <div id="top-bar">
@@ -44,9 +46,9 @@
                     <div class="article-content">
                         <h2><input id="article-title" value="Заголовок" required></h2>
                         <textarea id="article-text" rows="15" maxlength="3000" required>Содержание</textarea><br>
-                        <div class="new-image">
-                            <input type="file" id="article-image"><br>
-                            <button>X</button>
+                        <div class="news-image">
+                            <input type="file" class="article-image"><br>
+                            <button class="del-image">X</button>
                         </div>
                         <button id="add-image">Добавить картинку</button>
                     </div>

@@ -12,4 +12,5 @@
     align-self:flex-start;
     height: 400px;
     object-fit: contain;
+    max-width:50vw;
 }

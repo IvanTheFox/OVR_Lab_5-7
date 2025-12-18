@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.not_a_team.university.Entities.News;
@@ -19,8 +20,8 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/newsinfo/{id}")
-    public ResponseEntity<News> getNewsInfo(@PathVariable Long id) {
+    @GetMapping("/newsinfo/*")
+    public ResponseEntity<News> getNewsInfo(@RequestParam("id") Long id) {
         Optional<News> news = newsService.getNewsById(id);
 
         if (news.isPresent())
@@ -29,8 +30,8 @@ public class NewsController {
             return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/prevnewsinfo/{id}")
-    public ResponseEntity<News> getPreviousNews(@PathVariable Long id) {
+    @GetMapping("/prevnewsinfo/*")
+    public ResponseEntity<News> getPreviousNews(@RequestParam("id") Long id) {
         Optional<News> news;
         if (id == -1)
             news = newsService.getLatestNews();

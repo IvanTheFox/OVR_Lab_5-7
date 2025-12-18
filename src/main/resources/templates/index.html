@@ -5,13 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
-        <script src="../js/fetch_user.js"></script>
-        <script src="../js/news_builder.js"></script>
-        <script src="../static/js/time_fetcher.js"></script>
+        <script th:src="@{/js/fetch_user.js}"></script>
+        <script th:src="@{/js/news_builder.js}"></script>
+        <script th:src="@{/js/time_fetcher.js}"></script>
     </head>
     <body>
         <div id="top-bar">
-            <center style="width:40%"><div id="uniname">Unusual Government University</div></center>
+            <center style="width:35%"><div id="uniname">Unusual Government University</div></center>
             <div id="nonuniname">
                 <div id="server-info">
                     <p>Серверное время: <span id="server-time"></span></p>
@@ -39,14 +39,14 @@
                 <div class="news-creator">
                     <img alt="pfp" src="">
                     <div class="new-description">
-                        <b>Пиздец</b>
-                        <p>hihihihihihi</p>
+                        <b>Пользователь</b>
+                        <p>12.12.2024, 00:12:52</p>
                         <p id="news-id" th:if="${user.role.permLevel>0}"></p>
                     </div>
                 </div>
                 <div class="article-content">
-                    <h2>Доброе утро с новым ходом</h2>
-                    <p>vaivisbiwngwehiovwkfkekpwkaj;wngjwbjwbwnbfnbldnobsnkbnkbnekbnfejovjejnfejbnebnfenbkb vej;akjbvjfenjo wkenokewnbknkosefnkb</p>
+                    <h2>Мы сделали 7 лабу</h2>
+                    <p>На самом деле мы ее не сделали</p>
                     <img src="" alt="hello">
                 </div>
             </div>
