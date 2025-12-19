@@ -5,23 +5,19 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.not_a_team.university.Entities.ResponseUser;
 import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Enums.Role;
-import com.not_a_team.university.Services.NewsService;
 import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NewsController {
-    private NewsService newsService;
     private UserService userService;
 
-    public NewsController(NewsService newsService, UserService userService) {
-        this.newsService = newsService;
+    public NewsController(UserService userService) {
         this.userService = userService;
     }
 
@@ -39,15 +35,5 @@ public class NewsController {
         model.addAttribute("user", new ResponseUser(user));
 
         return "editarticle";
-    }
-
-    @PostMapping("/newnews")
-    public String publishNews() {
-        
-    }
-
-    @PostMapping("/editnews")
-    public String editNews() {
-
     }
 }
