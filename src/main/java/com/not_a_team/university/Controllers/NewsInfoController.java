@@ -63,14 +63,12 @@ public class NewsInfoController {
         newsService.saveNews(news);
         news.setText(text);
         news.setTitle(title);
-        System.out.println(files.get());
         for (String picturePath : existingFiles) {
             news.addPicture(picturePath);
         }
         if(files.isPresent()){
             for (MultipartFile file : files.get()) {
                 try {
-                    System.out.println(file);
                     news.addPicture(file);
                 } catch (IOException exception) {
                     System.out.println("Unable to save file to " + exception.getMessage());
@@ -78,7 +76,6 @@ public class NewsInfoController {
             }
         }
         newsService.saveNews(news);
-        System.out.println(news.getId());
         return "Новость опубликована!";
     }
 

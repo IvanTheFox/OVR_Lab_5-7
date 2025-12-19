@@ -159,6 +159,7 @@ body {
 #editor-controller {
     display: flex;
     justify-items: center;
+    padding-top: 15px;
 }
 
 #desc-divider {

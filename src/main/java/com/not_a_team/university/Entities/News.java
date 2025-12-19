@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "news")
 public class News {
-    private static String picturesPath = "uploads\\news_pictures\\";
+    private static String picturesPath = "static\\uploads\\news_pictures\\";
     private static final int maxPictureCount = 5;
     
     @Id
