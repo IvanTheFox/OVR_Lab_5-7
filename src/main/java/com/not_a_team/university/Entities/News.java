@@ -21,6 +21,7 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String title;
     private String text;
     private Long author;
     private Long publishTime;
@@ -43,6 +44,13 @@ public class News {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    // Title
+    public String getTitle() {
+        return this.title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
     // Text
     public String getText() {
