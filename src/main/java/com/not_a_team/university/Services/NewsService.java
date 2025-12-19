@@ -55,12 +55,12 @@ public class NewsService {
         News currentNews = _currentNews.get();
         Long currentTime = currentNews.getPublishTime();
         Optional<News> prevNews = Optional.empty();
-
+        System.out.println("fssssssssssssssssssssssssssssssssssssssss");
         ArrayList<News> news = new ArrayList<News>(getAllNews());
         for (News n : news) {
             Long nPublishTime = n.getPublishTime();
-            
-            if (n.getId() == id)
+            System.out.println(n.getId());
+            if (n.getId().equals(id))
                 continue;
 
             if (nPublishTime > currentTime)

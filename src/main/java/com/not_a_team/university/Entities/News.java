@@ -74,6 +74,20 @@ public class News {
         this.publishTime = publishTime;
     }
 
+    public String[] getPictures() {
+        return this.pictures;
+    }
+    public void setPictures(String[] pictures) {
+        this.pictures = pictures;
+    }
+
+    public int getPictureCount() {
+        return this.pictureCount;
+    }
+    public void setPictureCount(int pictureCount) {
+        this.pictureCount = pictureCount;
+    }
+
     // -- Picture management
     // Adding pictures
     public void addPicture(String picturePath) {
