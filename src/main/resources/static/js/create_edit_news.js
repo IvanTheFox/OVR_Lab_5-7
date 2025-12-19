@@ -1,13 +1,13 @@
-document.getElementById("change-edit-news").addEventListener("click",()=>{
-    updateNews();
+document.getElementById("make-new-news").addEventListener("click",()=>{
+    createNews();
 });
 
-async function updateNews() {
+async function createNews() {
     const fileInput = document.getElementById('fileInput');
     const files = fileInput.files;
 
     const formData = new FormData();
-    formData.append('file', files);
+    formData.append('files', files);
 
     formData.append("title",document.getElementById("article-title").value);
     formData.append("text",document.getElementById("article-text").value);
@@ -20,7 +20,7 @@ async function updateNews() {
     formData.append("existingFiles",attributes);
 
     try {
-        const response = await fetch('/editnews', {
+        const response = await fetch('/newnews', {
             method: 'POST',
             body: formData 
         });
