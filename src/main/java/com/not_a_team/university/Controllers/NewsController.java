@@ -2,50 +2,52 @@ package com.not_a_team.university.Controllers;
 
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.not_a_team.university.Entities.News;
+import com.not_a_team.university.Entities.ResponseUser;
+import com.not_a_team.university.Entities.User;
+import com.not_a_team.university.Enums.Role;
 import com.not_a_team.university.Services.NewsService;
+import com.not_a_team.university.Services.UserService;
 
-@RestController
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 public class NewsController {
     private NewsService newsService;
+    private UserService userService;
 
-    public NewsController(NewsService newsService) {
+    public NewsController(NewsService newsService, UserService userService) {
         this.newsService = newsService;
+        this.userService = userService;
     }
 
-    @GetMapping("/newsinfo/*")
-    public ResponseEntity<News> getNewsInfo(@RequestParam("id") Long id) {
-        Optional<News> news = newsService.getNewsById(id);
+    @GetMapping("/editarticle")
+    public String editArticlePage(HttpSession session, Model model) {
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isEmpty())
+            return "redirect:/login";
+        User user = _user.get();
 
-        if (news.isPresent())
-            return ResponseEntity.ok(news.get());
-        else
-            return ResponseEntity.notFound().build();
+        if (user.getRole() == Role.User) {
+            return "redirect:/index";
+        }
+
+        model.addAttribute("user", new ResponseUser(user));
+
+        return "editarticle";
     }
 
-    @GetMapping("/prevnewsinfo/*")
-    public ResponseEntity<News> getPreviousNews(@RequestParam("id") Long id) {
-        Optional<News> news;
-        if (id == -1)
-            news = newsService.getLatestNews();
-        else
-            news = newsService.getPreviousNews(id);
-
-        if (news.isPresent())
-            return ResponseEntity.ok(news.get());
-        else
-            return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/editarticle")
-    public void publishArticle() {
+    @PostMapping("/newnews")
+    public String publishNews() {
         
+    }
+
+    @PostMapping("/editnews")
+    public String editNews() {
+
     }
 }
