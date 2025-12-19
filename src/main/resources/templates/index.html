@@ -5,9 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
-        <script th:src="@{/js/fetch_user.js}"></script>
         <script th:src="@{/js/time_fetcher.js}"></script>
-        <script th:src="@{/js/load_init_news.js}"></script>
     </head>
     <body>
         <div id="top-bar">
@@ -42,9 +40,9 @@
                         <div class="new-description">
                             <b>Пользователь</b>
                             <p>12.12.2024, 00:12:52</p>
-                            <p id="news-id" th:if="${user.role.permLevel>0}"></p>
+                            <p id="news-id" th:if="${user.permLevel>0}"></p>
                         </div>
-                        <div><button id="delete-news">X</button></div>
+                        <div><button id="delete-news">Удалить новость</button></div>
                     </div>
                 </div>
                 <div class="article-content">
@@ -55,5 +53,6 @@
             </div>
             <button id="loadmore-btn" class="cool-btn">Загрузить больше новостей</button>
         </div>
+        <script th:src="@{/js/load_init_news.js}"></script>
     </body>
 </html>

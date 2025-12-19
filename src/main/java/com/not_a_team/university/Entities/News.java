@@ -85,7 +85,7 @@ public class News {
     public void addPicture(MultipartFile picture) throws IOException {
         int i = 0;
         String pictureName = this.id + "-" + pictureCount;
-        while (FileService.findFileByName(pictureName, picturesPath)) {
+        while (FileService.findFile(pictureName+FileService.getFileExtension(picture.getOriginalFilename()), picturesPath)) {
             i++;
             pictureName = this.id + "-" + (pictureCount + i);
         }

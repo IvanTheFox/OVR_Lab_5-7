@@ -4,10 +4,10 @@ document.getElementById("change-edit-news").addEventListener("click",()=>{
 
 async function updateNews() {
     const fileInput = document.getElementById('article-images');
-    const files = fileInput.files;
-
     const formData = new FormData();
-    formData.append('file', files);
+    for (const file of fileInput.files) {
+        formData.append('files', file);
+    }
 
     formData.append("title",document.getElementById("article-title").value);
     formData.append("text",document.getElementById("article-text").value);
@@ -19,7 +19,7 @@ async function updateNews() {
     }
     formData.append("existingFiles",attributes);
 
-    formData.append("id", document.getElementById("news-id"));
+    formData.append("newsId", document.getElementById("news-id").value);
 
     try {
         const response = await fetch('/editnews', {
