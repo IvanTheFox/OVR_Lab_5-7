@@ -1,8 +1,5 @@
 package com.not_a_team.university.Entities;
 
-import jakarta.persistence.Entity;
-
-@Entity
 public class ResponseUser {
     public Long id;
     public String name;
