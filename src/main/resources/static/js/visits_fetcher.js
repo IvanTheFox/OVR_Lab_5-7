@@ -1,1 +1,0 @@
-import * as ufetch from "./user_fetcher"

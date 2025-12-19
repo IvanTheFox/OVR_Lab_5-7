@@ -160,3 +160,18 @@ body {
     display: flex;
     justify-items: center;
 }
+
+#desc-divider {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#news-id {
+    font: 10px "Gill Sans", monospace;
+}
+
+#delete-news {
+    font-size:20px;
+    background-color: red;
+}

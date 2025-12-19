@@ -1,8 +1,8 @@
-document.getElementById("change-edit-news").addEventListener("click",()=>{
-    updateNews();
+document.getElementById("make-new-news").addEventListener("click",()=>{
+    createNews();
 });
 
-async function updateNews() {
+async function createNews() {
     const fileInput = document.getElementById('article-images');
     const formData = new FormData();
     for (const file of fileInput.files) {
@@ -19,10 +19,8 @@ async function updateNews() {
     }
     formData.append("existingFiles",attributes);
 
-    formData.append("newsId", document.getElementById("news-id").value);
-
     try {
-        const response = await fetch('/editnews', {
+        const response = await fetch('/newnews', {
             method: 'POST',
             body: formData 
         });

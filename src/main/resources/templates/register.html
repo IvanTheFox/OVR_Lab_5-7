@@ -26,12 +26,13 @@
                 </div>
                 <div>
                     <label>Роль</label><br>
-                    <input type="radio" name="role" value="0">Пользователь<br>
+                    <input type="radio" name="role" value="0" checked>Пользователь<br>
                     <input type="radio" name="role" value="1">Модератор<br>
                     <input type="radio" name="role" value="2">Администратор<br>
                 </div>
                 <button type="submit">Зарегистрироваться</button>
                 <div></div>
+                <p><a th:href="@{/login}">Логин</a></p>
             </form>
         </center>
     </body>

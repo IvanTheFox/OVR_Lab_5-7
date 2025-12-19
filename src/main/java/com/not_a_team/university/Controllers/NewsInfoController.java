@@ -1,10 +1,12 @@
 package com.not_a_team.university.Controllers;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +29,8 @@ public class NewsInfoController {
         this.userService = userService;
     }
 
-    @GetMapping("/newsinfo/*")
-    public ResponseEntity<News> getNewsInfo(@RequestParam("id") Long id) {
+    @GetMapping("/newsinfo/{id}")
+    public ResponseEntity<News> getNewsInfo(@PathVariable("id") Long id) {
         Optional<News> news = newsService.getNewsById(id);
 
         if (news.isPresent())
@@ -37,10 +39,10 @@ public class NewsInfoController {
             return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/prevnewsinfo/*")
-    public ResponseEntity<News> getPreviousNews(@RequestParam("id") Long id) {
+    @GetMapping("/prevnewsinfo/{id}")
+    public ResponseEntity<News> getPreviousNews(@PathVariable("id") Long id) {
         Optional<News> news;
-        if (id == -1)
+        if (id.equals(-1L))
             news = newsService.getLatestNews();
         else
             news = newsService.getPreviousNews(id);
@@ -51,34 +53,37 @@ public class NewsInfoController {
             return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/newnews")
-    public String publishNews(HttpSession session, MultipartFile[] files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
+    @PostMapping(value = "/newnews", consumes = "multipart/form-data")
+    public String publishNews(HttpSession session, @RequestParam Optional<List<MultipartFile>> files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
         Optional<User> _user = userService.getUserBySession(session);
         if (_user.isEmpty())
             return "redirect:/login";
         User user = _user.get();
-
         News news = new News(user.getId());
+        newsService.saveNews(news);
         news.setText(text);
         news.setTitle(title);
+        System.out.println(files.get());
         for (String picturePath : existingFiles) {
             news.addPicture(picturePath);
         }
-        for (MultipartFile file : files) {
-            try {
-                news.addPicture(file);
-            } catch (IOException exception) {
-                System.out.println("Unable to save file to " + exception.getMessage());
+        if(files.isPresent()){
+            for (MultipartFile file : files.get()) {
+                try {
+                    System.out.println(file);
+                    news.addPicture(file);
+                } catch (IOException exception) {
+                    System.out.println("Unable to save file to " + exception.getMessage());
+                }
             }
         }
-
         newsService.saveNews(news);
-
+        System.out.println(news.getId());
         return "Новость опубликована!";
     }
 
-    @PostMapping("/editnews")
-    public String editNews(HttpSession session, Long newsId, MultipartFile[] files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
+    @PostMapping(value = "/editnews", consumes = "multipart/form-data")
+    public String editNews(HttpSession session, @RequestParam Long newsId, @RequestParam Optional<List<MultipartFile>> files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
         Optional<User> _user = userService.getUserBySession(session);
         if (_user.isEmpty())
             return "redirect:/login";
@@ -93,13 +98,17 @@ public class NewsInfoController {
         for (String picturePath : existingFiles) {
             news.addPicture(picturePath);
         }
-        for (MultipartFile file : files) {
-            try {
-                news.addPicture(file);
-            } catch (IOException exception) {
-                System.out.println("Unable to save file to " + exception.getMessage());
+
+        if(files.isPresent()){
+            for (MultipartFile file : files.get()) {
+                try {
+                    news.addPicture(file);
+                } catch (IOException exception) {
+                    System.out.println("Unable to save file to " + exception.getMessage());
+                }
             }
         }
+       
 
         newsService.saveNews(news);
 

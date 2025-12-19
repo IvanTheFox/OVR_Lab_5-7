@@ -65,8 +65,7 @@ public class FileService {
         return false;
     }
     static public boolean findFile(String fileName, String directory) {
-        Path dirPath = Paths.get(workingDir + directory);
-        File dir = new File(dirPath.toString());
-        return Arrays.asList(dir.list()).contains(fileName);
+        Path path = Paths.get(workingDir + directory + fileName);
+        return Files.exists(path) && Files.isRegularFile(path);
     }
 }
