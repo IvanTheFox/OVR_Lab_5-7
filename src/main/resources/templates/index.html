@@ -38,10 +38,13 @@
             <div class="article">
                 <div class="news-creator">
                     <img alt="pfp" src="">
-                    <div class="new-description">
-                        <b>Пользователь</b>
-                        <p>12.12.2024, 00:12:52</p>
-                        <p id="news-id" th:if="${user.role.permLevel>0}"></p>
+                    <div id="desc-divider">
+                        <div class="new-description">
+                            <b>Пользователь</b>
+                            <p>12.12.2024, 00:12:52</p>
+                            <p id="news-id" th:if="${user.role.permLevel>0}"></p>
+                        </div>
+                        <div><button id="delete-news">X</button></div>
                     </div>
                 </div>
                 <div class="article-content">

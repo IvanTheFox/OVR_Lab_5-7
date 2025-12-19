@@ -72,9 +72,10 @@ export async function buildNews(news) {
 export async function buildNewsEditor(news){
     let article = document.getElementsByClassName("article-content");
     let imagesHTML=""
+
     news.pictures.forEach(picPath => {
         imagesHTML+='<div class="news-image">'+
-        `<input type="file" class="article-image" value=${picPath}><br>`+
+        `<img alt="fto" value=${picPath}><br>`+
         '<button class="del-image">X</button>'+
         '</div>';
     })

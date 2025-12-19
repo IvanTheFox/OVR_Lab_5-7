@@ -7,7 +7,8 @@
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
         <link rel="stylesheet" th:href="@{/css/news_editor_style.css}">
         <script th:src="@{/js/time_fetcher.js}"></script>
-        <script ></script>
+        <script th:src="@{/js/load_edit_news.js}"></script>
+        <script th:src="@{/js/update_edited_news.js}"></script>
     </head>
     <body>
         <div id="top-bar">
@@ -47,10 +48,8 @@
                         <h2><input id="article-title" value="Заголовок" required></h2>
                         <textarea id="article-text" rows="15" maxlength="3000" required>Содержание</textarea><br>
                         <div class="news-image">
-                            <input type="file" class="article-image"><br>
-                            <button class="del-image">X</button>
+                            <input type="file" name="files" class="article-images" multiple required />
                         </div>
-                        <button id="add-image">Добавить картинку</button>
                     </div>
                 </div>
             </form>

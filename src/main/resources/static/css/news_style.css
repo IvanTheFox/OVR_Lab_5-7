@@ -160,3 +160,12 @@ body {
     display: flex;
     justify-items: center;
 }
+
+#desc-divider {
+    display: flex;
+    justify-content: space-between;
+}
+
+#news-id {
+    font: 10px "Gill Sans", monospace;
+}
