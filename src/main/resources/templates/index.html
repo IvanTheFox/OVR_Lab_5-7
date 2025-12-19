@@ -17,7 +17,7 @@
                     <p>Серверное время: <span id="server-time"></span></p>
                     <p>Количество посещений: <span id="visits" th:text="${user.loginCount}"></span></p>
                 </div>
-                <form th:if="${user.role.permLevel>0}" th:action="@{/editarticle}">
+                <form th:if="${user.permLevel>0}" th:action="@{/editarticle}">
                     <button class="tab" type="submit">Редактор новостей</button>
                 </form>
                 <form th:action="@{/index}">
@@ -41,7 +41,7 @@
                     <div class="new-description">
                         <b>Пользователь</b>
                         <p>12.12.2024, 00:12:52</p>
-                        <p id="news-id" th:if="${user.role.permLevel>0}"></p>
+                        <p id="news-id" th:if="${user.permLevel>0}"></p>
                     </div>
                 </div>
                 <div class="article-content">
