@@ -12,7 +12,7 @@ async function fetchNewsById(id) {
 }
 
 async function buildNewsEditor(news){
-    let article = document.getElementsByClassName("article-content");
+    let article = document.getElementsByClassName("article-content")[0];
     let imagesHTML="";
 
     news.pictures.forEach(picPath => {
@@ -27,8 +27,8 @@ async function buildNewsEditor(news){
         <input type="file" name="files" id="article-images" multiple required>`;
 }
 
-let id=document.getElementById("news-id").value;
 document.getElementById("get-edit-news").addEventListener("click", ()=>{
+    let id=document.getElementById("news-id").value;
     let news = fetchNewsById(id);
     buildNewsEditor(news);
     let btnarr = document.getElementsByClassName("del-image");

@@ -7,9 +7,6 @@
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
         <link rel="stylesheet" th:href="@{/css/news_editor_style.css}">
         <script th:src="@{/js/time_fetcher.js}"></script>
-        <script th:src="@{/js/load_edit_news.js}"></script>
-        <script th:src="@{/js/update_edited_news.js}"></script>
-        <script th:src="@{/js/create_edit_news.js}"></script>
     </head>
     <body>
         <div id="top-bar">
@@ -37,8 +34,9 @@
             <div id="editor-controller">
                 <input type="text" id="news-id" name="news_id">
                 <button id="get-edit-news">Загрузить новость</button>
-                <button type="submit" formaction="/editnews" id="change-edit-news">Изменить новость</button>
-                <button type="submit" formaction="/newnews" id="make-new-news">Создать новость</button>
+                <button id="change-edit-news">Изменить новость</button>
+                <button id="make-new-news">Создать новость</button>
+                <span id="response-text"></span>
             </div>
             <span th:if="${errorMessage}" style="color:red; font-size: 10px;">
                 <p th:text="${errorMessage}"></p>
@@ -48,10 +46,13 @@
                     <h2><input id="article-title" value="Заголовок" required></h2>
                     <textarea id="article-text" rows="15" maxlength="3000" required>Содержание</textarea><br>
                     <div class="news-image"></div>
-                    <input type="file" name="files" id="article-images" multiple required><br>
+                    <input type="file"  id="article-images" multiple required>
                     <span id="error-msg" style="color:red; font-size: 10px;"></span>
                 </div>
             </div>
         </div>
+        <script th:src="@{/js/load_edit_news.js}"></script>
+        <script th:src="@{/js/update_edited_news.js}"></script>
+        <script th:src="@{/js/create_edit_news.js}"></script>
     </body>
 </html>

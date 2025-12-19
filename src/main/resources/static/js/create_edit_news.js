@@ -3,7 +3,7 @@ document.getElementById("make-new-news").addEventListener("click",()=>{
 });
 
 async function createNews() {
-    const fileInput = document.getElementById('fileInput');
+    const fileInput = document.getElementById('article-images');
     const files = fileInput.files;
 
     const formData = new FormData();
@@ -14,9 +14,9 @@ async function createNews() {
 
     let oldFilesArr = document.getElementsByClassName("news-image");
     let attributes = new Array();
-    oldFilesArr.forEach(file => {
-        attributes.push(file.getAttribute("src"));
-    });
+    for (let i=0; i<oldFilesArr.length; i++){
+        attributes.push(oldFilesArr[i].getAttribute("src"));
+    }
     formData.append("existingFiles",attributes);
 
     try {
@@ -28,6 +28,7 @@ async function createNews() {
         if (response.ok) {
             const result = await response.text();
             console.log('File uploaded successfully:', result);
+            document.getElementById("response-text").innerHTML=result;
         } else {
             console.error('File upload failed with status:', response.status);
             alert('File upload failed.');
