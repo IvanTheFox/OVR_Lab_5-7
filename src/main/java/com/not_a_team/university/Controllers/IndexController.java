@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.not_a_team.university.Entities.ResponseUser;
 import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Services.UserService;
 
@@ -26,7 +27,7 @@ public class IndexController {
             return "redirect:/login";
         
         User user = _user.get();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new ResponseUser(user));
 
         return "index";
     }

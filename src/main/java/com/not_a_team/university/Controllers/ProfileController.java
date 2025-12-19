@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.not_a_team.university.Entities.ResponseUser;
 import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Services.UserService;
 
@@ -30,7 +31,7 @@ public class ProfileController {
             return "redirect:/login";
         
         User user = _user.get();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new ResponseUser(user));
 
         return "profile";
     }
