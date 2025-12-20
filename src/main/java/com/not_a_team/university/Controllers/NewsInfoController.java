@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.not_a_team.university.Entities.News;
 import com.not_a_team.university.Entities.User;
+import com.not_a_team.university.Enums.Role;
 import com.not_a_team.university.Services.NewsService;
 import com.not_a_team.university.Services.UserService;
 
@@ -40,7 +41,11 @@ public class NewsInfoController {
     }
 
     @GetMapping("/prevnewsinfo/{id}")
-    public ResponseEntity<News> getPreviousNews(@PathVariable("id") Long id) {
+    public ResponseEntity<News> getPreviousNews(HttpSession session, @PathVariable("id") Long id) {
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isEmpty())
+            return ResponseEntity.notFound().build();
+        
         Optional<News> news;
         if (id.equals(-1L))
             news = newsService.getLatestNews();
@@ -59,6 +64,9 @@ public class NewsInfoController {
         if (_user.isEmpty())
             return "redirect:/login";
         User user = _user.get();
+        if (user.getRole() == Role.User)
+            return "redirect:/index";
+
         News news = new News(user.getId());
         newsService.saveNews(news);
         news.setText(text);
@@ -84,6 +92,9 @@ public class NewsInfoController {
         Optional<User> _user = userService.getUserBySession(session);
         if (_user.isEmpty())
             return "redirect:/login";
+        User user = _user.get();
+        if (user.getRole() == Role.User)
+            return "redirect:/index";
 
         Optional<News> _news = newsService.getNewsById(newsId);
         if (_news.isEmpty())

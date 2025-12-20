@@ -43,8 +43,10 @@ public class ProfileEditorController {
             } catch (IOException exception) {}
         }
 
-        user.setUsername(name);
-        user.setPassword(password);
+        if (name != null && !name.equals(""))
+            user.setUsername(name);
+        if (password != null && !password.equals(""))
+            user.setPassword(password);
         user.setRole(Role.getRoleFromPermLevel(permLevel));
         user.setLoginCount(loginCount);
 

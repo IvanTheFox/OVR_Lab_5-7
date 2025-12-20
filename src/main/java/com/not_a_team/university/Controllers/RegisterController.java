@@ -1,5 +1,7 @@
 package com.not_a_team.university.Controllers;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,15 +26,19 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String registerPage(HttpSession session) {
-        if (userService.getUserBySession(session).isPresent()) {
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isPresent())
             return "redirect:/profile";
-        }
         
         return "register";
     }
 
     @PostMapping("/register")
     public String registerForm(HttpSession session, Model model, @RequestParam String username, @RequestParam String password, @RequestParam int role) {
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isPresent())
+            return "redirect:/profile";
+        
         boolean hasErrorOccured = false;
         if (!RegisterInfoChecker.checkUsername(username)) {
             model.addAttribute("usernameError", "Имя пользователя должно быть длиной 3 - 20 символов и содержать любые буквы или цифры");

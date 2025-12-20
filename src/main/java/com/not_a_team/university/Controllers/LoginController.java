@@ -8,8 +8,11 @@ import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Repositories.UserRepository;
 import com.not_a_team.university.Services.UserService;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -36,6 +39,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginForm(HttpSession session, Model model, @RequestParam String username, @RequestParam String password) {
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isPresent())
+            return "redirect:/profile";
+        
         if (!userService.checkLoginInfo(session, username, password)) {
             model.addAttribute("errorMessage", "Неправильный логин или пароль");
             return "login";

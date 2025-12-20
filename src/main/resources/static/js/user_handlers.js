@@ -44,7 +44,7 @@ function writeUser(user) {
     console.log(user)
     let container = document.getElementById("user-data");
     container.innerHTML=`<div class="data-cell">
-                    <span id="userid"><b>Id: ${user.id}</b></span>
+                    <span id="userid"><b>${user.id}</b></span>
                 </div>
                 <div class="data-cell">
                     <img id="orig-avatar" alt="pfp" src="/uploads/avatars/${user.avatar}">

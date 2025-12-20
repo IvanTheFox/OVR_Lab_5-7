@@ -38,7 +38,10 @@ public class ProfileController {
 
     @PostMapping("/profile/upload")
     public String avatarUpload(HttpSession session, Model model, MultipartFile file) {
-        User user = userService.getUserBySession(session).get();
+        Optional<User> _user = userService.getUserBySession(session);
+        if (_user.isEmpty())
+            return "redirect:/login";
+        User user = _user.get();
 
         try {
             user.setAvatar(file);
