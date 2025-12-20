@@ -5,7 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" th:href="@{/css/news_style.css}">
-        <script src="../static/js/time_fetcher.js"></script>
+        <script th:src="@{/js/time_fetcher.js}"></script>
+        <script type="module" th:src="@{/js/user_handlers.js}"></script>
     </head>
     <body>
         <div id="top-bar">
@@ -31,10 +32,13 @@
         </div>
         <div id="editor-container">
             <div id="editor-controller">
-                <input type="text" id="username">
+                <input type="text" id="username-id">
                 <button id="get-user-byname">Получить пользователя по имени</button>
                 <button id="get-user-byid">Получить пользователя по идентификатору</button>
-                <button id="make-new-user">Создать пользователя</button>
+                <button id="update-user">Подтвердить изменения данных</button>
+                <span id="response-text"></span>
+            </div>
+            <div id="user-data">
             </div>
         </div>
     </body>

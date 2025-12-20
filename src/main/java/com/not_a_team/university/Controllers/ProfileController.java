@@ -36,7 +36,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/profile/upload")
     public String avatarUpload(HttpSession session, Model model, MultipartFile file) {
         User user = userService.getUserBySession(session).get();
 

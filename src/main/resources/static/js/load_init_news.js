@@ -13,7 +13,7 @@ async function fetchNewsByPrev(id_prev) {
 
 async function fetchUserById(id) {
     try {
-        const response = await fetch(`http://localhost:8089/userinfobyid/?id=${id}`); 
+        const response = await fetch(`http://localhost:8089/userinfobyid/${id}`); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -35,12 +35,12 @@ async function buildNews(news) {
         imgHTML+=`<img th:src="@{${pic}}" alt="pic">`;
     }
     temp3.innerHTML=`<div class="news-creator">
-                    <img alt="pfp" th:src="@{${author.avatar}}">
+                    <img alt="pfp" th:src="@{/uploads/avatars/${author.avatar}}">
                     <div id="desc-divider">
                         <div class="new-description">
-                            <b>${author.name}</b>
+                            <b>${author.username}</b>
                             <p>${time.toLocaleString()}</p>`+
-                            '<p id="news-id" th:if="${user.permLevel>0}">'+`${news.id}</p>+`+
+                            '<p id="news-id" th:if="${user.permLevel>0}">'+`ID новости=${news.id}</p>+`+
                         `</div>
                         <div><button id="delete-news">Удалить новость</button></div>
                     </div>
@@ -54,27 +54,19 @@ async function buildNews(news) {
     return news.id;
 }
 
-let j=-1;
-let flag=false;
-for (let i=0; i<5; i++) {
-    fetchNewsByPrev(j).then(async result => {
-        if(result === null) {
-            document.getElementById("loadmore-btn").disabled=true;
-            flag=true;
+async function showNews() {
+    let j=-1;
+    let flag=false;
+    for (let i=0; i<5; i++) {
+        const result = await fetchNewsByPrev(j);
+        if (result === null) {
+            document.getElementById("loadmore-btn").disabled = true;
+            flag = true;
         } else {
             j = await buildNews(result);
         }
         console.log(j);
-    });
-    if (flag) break;
-}
-document.getElementById("loadmore-btn").addEventListener("click", async ()=>{
-    for (let i=0; i<5; i++) {
-        let news = await fetchNewsByPrev(j);
-        if(news === null) {
-            document.getElementById("loadmore-btn").disabled=true;
-            break;
-        }
-        j = await buildNews(news);
+        if (flag) break;
     }
-});
+}
+

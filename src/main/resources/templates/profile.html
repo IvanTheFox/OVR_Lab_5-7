@@ -33,7 +33,7 @@
         <div id="profile-container">
             <h2>Добро пожаловать, <span th:text="${user.name}"></span>!</h2>
             <img th:src="@{'uploads/avatars/'+${user.avatar}}" alt="foto" id="pfp-self">
-            <form th:acition="@{/profile/upload}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" class="cool-btn"><br>
                 <button type="submit" class="cool-btn">Изменить аватар</button>
             </form>
