@@ -32,15 +32,15 @@ async function buildNews(news) {
     console.log(news);
     temp3.setAttribute("class","article");
     for (let pic of news.pictures){
-        imgHTML+=`<img th:src="@{${pic}}" alt="pic">`;
+        imgHTML+=`<img src="uploads/news_pictures/${pic}" alt="pic">`;
     }
     temp3.innerHTML=`<div class="news-creator">
-                    <img alt="pfp" th:src="@{/uploads/avatars/${author.avatar}}">
+                    <img alt="pfp" src="/uploads/avatars/${author.avatar}">
                     <div id="desc-divider">
                         <div class="new-description">
                             <b>${author.username}</b>
                             <p>${time.toLocaleString()}</p>`+
-                            '<p id="news-id" th:if="${user.permLevel>0}">'+`ID новости=${news.id}</p>+`+
+                            '<p id="news-id" if="${user.permLevel>0}">'+`ID новости=${news.id}</p>+`+
                         `</div>
                         <div><button id="delete-news">Удалить новость</button></div>
                     </div>

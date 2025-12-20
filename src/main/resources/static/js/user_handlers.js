@@ -1,4 +1,5 @@
 async function fetchUserById(id) {
+    console.log("Fetching user with id " + id)
     try {
         const response = await fetch(`http://localhost:8089/userinfobyid/${id}`); 
         if (!response.ok) {
@@ -27,14 +28,14 @@ async function fetchUserByName(name) {
 }
 
 document.getElementById("get-user-byname").addEventListener("click", async ()=>{
-    let user = await fetchUserByName(document.getElementById("username-id").innerHTML);
+    let user = await fetchUserByName(document.getElementById("username-id").value);
     console.log(user)
     if(!user) return
     writeUser(user);
 });
 
 document.getElementById("get-user-byid").addEventListener("click", async ()=>{
-    let user = await fetchUserById(document.getElementById("username-id").innerHTML);
+    let user = await fetchUserById(document.getElementById("username-id").value);
     if(!user) return
     writeUser(user);
 });
@@ -43,29 +44,31 @@ function writeUser(user) {
     console.log(user)
     let container = document.getElementById("user-data");
     container.innerHTML=`<div class="data-cell">
-                    <span>${user.id}</span>
+                    <span id="userid"><b>Id: ${user.id}</b></span>
                 </div>
                 <div class="data-cell">
-                    <img id="orig-avatar" alt="pfp" th:src="@{/uploads/avatars/${author.avatar}}">
+                    <img id="orig-avatar" alt="pfp" src="/uploads/avatars/${user.avatar}">
                     <input type="file" id="avatar">
                 </div>
-                <input type="text" id="login" class="data-cell" value="${user.login}">
+                <input type="text" id="login" class="data-cell" value="${user.username}">
                 <input type="text" id="password" class="data-cell" value="${user.password}">
                 <select id="role" class="data-cell">
-                    <option value="0"${user.role.permLevel==0?" selected":""}>Пользователь</option>
-                    <option value="1"${user.role.permLevel==1?" selected":""}>Модератор</option>
-                    <option value="2"${user.role.permLevel==2?" selected":""}>Администратор</option>
+                    <option value="0"${user.role=='User'?" selected":""}>Пользователь</option>
+                    <option value="1"${user.role=='Moderator'?" selected":""}>Модератор</option>
+                    <option value="2"${user.role=='Admin'?" selected":""}>Администратор</option>
                 </select>
                 <div class="data-cell" id="loginCount">
-                    <span>${user.loginCount}</span>
+                    <span id="loginCountValue">${user.loginCount}</span>
                 </div>`;
 }
 
 document.getElementById("update-user").addEventListener("click", async ()=>{
     const formData = new FormData();
-    formData.append("login", document.getElementById("login").value);
+    formData.append("id", document.getElementById("userid").innerHTML)
+    formData.append("name", document.getElementById("login").value);
     formData.append("password", document.getElementById("password").value);
-    formData.append("role", document.getElementById("role").value);
+    formData.append("permLevel", document.getElementById("role").value);
+    formData.append("loginCount", document.getElementById("loginCountValue").innerHTML)
     if(document.getElementById("avatar").value!==null) {
         formData.append("avatar",document.getElementById("avatar").value);
     }
@@ -88,3 +91,12 @@ document.getElementById("update-user").addEventListener("click", async ()=>{
         alert('Error during file upload.');
     }
 });
+
+async function tempfunc() {
+    let user = await fetchUserById(1);
+    console.log(user)
+    if(!user) return
+    writeUser(user);
+};
+
+tempfunc()

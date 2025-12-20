@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.not_a_team.university.Entities.User;
@@ -21,6 +20,7 @@ public class UserController {
 
     @GetMapping("/userinfobyid/{id}")
     public ResponseEntity<User> getUserInfoById(@PathVariable("id") Long id) {
+        System.out.println("Fetching user with id " + String.valueOf(id));
         Optional<User> user = userService.getUserById(id);
 
         if (user.isPresent())

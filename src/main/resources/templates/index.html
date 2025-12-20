@@ -35,24 +35,6 @@
                 <div id="news-header">
                     <span style="font-size:24px">Новостная лента</span>
                 </div>
-                <div class="article">
-                    <div class="news-creator">
-                        <img alt="pfp" th:src="@{/uploads/avatars/1.jpg}">
-                        <div id="desc-divider">
-                            <div class="new-description">
-                                <b>Пользователь</b>
-                                <p>12.12.2024, 00:12:52</p>
-                                <p id="news-id" th:if="${user.permLevel>0}"></p>
-                            </div>
-                            <div><button id="delete-news">Удалить новость</button></div>
-                        </div>
-                    </div>
-                    <div class="article-content">
-                        <h2>Мы сделали 7 лабу</h2>
-                        <p>На самом деле мы ее не сделали</p>
-                        <img src="" alt="hello">
-                    </div>
-                </div>
             </div>
             <button id="loadmore-btn" class="cool-btn">Загрузить больше новостей</button>
         </div>

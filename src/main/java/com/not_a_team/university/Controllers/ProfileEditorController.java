@@ -2,7 +2,6 @@ package com.not_a_team.university.Controllers;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,7 @@ public class ProfileEditorController {
     }
 
     @PostMapping("/editprofile")
-    public String editProfile(HttpSession session, MultipartFile avatar, @RequestParam Long id, @RequestParam Optional<String> name, @RequestParam Optional<String> password, @RequestParam OptionalInt permLevel, @RequestParam OptionalInt loginCount) {
+    public String editProfile(HttpSession session, MultipartFile avatar, @RequestParam Long id, @RequestParam String name, @RequestParam String password, @RequestParam int permLevel, @RequestParam int loginCount) {
         Optional<User> _thisuser = userService.getUserBySession(session);
         if (_thisuser.isEmpty())
             return "You are not a user!";
@@ -44,14 +43,10 @@ public class ProfileEditorController {
             } catch (IOException exception) {}
         }
 
-        if (name.isPresent())
-            user.setUsername(name.get());
-        if (password.isPresent())
-            user.setPassword(password.get());
-        if (permLevel.isPresent())
-            user.setRole(Role.getRoleFromPermLevel(permLevel.getAsInt()));
-        if (loginCount.isPresent())
-            user.setLoginCount(loginCount.getAsInt());
+        user.setUsername(name);
+        user.setPassword(password);
+        user.setRole(Role.getRoleFromPermLevel(permLevel));
+        user.setLoginCount(loginCount);
 
         userService.saveUser(user);
 

@@ -1,0 +1,10 @@
+#userid {
+    display: flex;
+    width: 75px;
+    height: 10vh;
+}
+
+#orig-avatar {
+    height: 10vh;
+    width: auto;
+}
