@@ -20,7 +20,6 @@ public class UserController {
 
     @GetMapping("/userinfobyid/{id}")
     public ResponseEntity<User> getUserInfoById(@PathVariable("id") Long id) {
-        System.out.println("Fetching user with id " + String.valueOf(id));
         Optional<User> user = userService.getUserById(id);
 
         if (user.isPresent())
