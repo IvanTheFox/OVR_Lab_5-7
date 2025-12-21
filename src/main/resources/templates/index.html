@@ -38,17 +38,8 @@
             </div>
             <button id="loadmore-btn" class="cool-btn">Загрузить больше новостей</button>
         </div>
-        <script>document.getElementById("loadmore-btn").addEventListener("click", async ()=>{
-    for (let i=0; i<5; i++) {
-        let news = await fetchNewsByPrev(j);
-        if(news === null) {
-            document.getElementById("loadmore-btn").disabled=true;
-            break;
-        }
-        j = await buildNews(news);
-    }
-});
-
-showNews();</script>
+        <script>
+            showNews();
+        </script>
     </body>
 </html>

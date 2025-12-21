@@ -29,7 +29,6 @@ async function updateNews() {
 
         if (response.ok) {
             const result = await response.text();
-            console.log('File uploaded successfully:', result);
             document.getElementById("response-text").innerHTML=result;
         } else {
             console.error('File upload failed with status:', response.status);

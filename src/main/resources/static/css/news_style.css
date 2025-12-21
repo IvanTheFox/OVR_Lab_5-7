@@ -168,11 +168,11 @@ body {
     width: 100%;
 }
 
-#news-id {
+.news-id {
     font: 12px "Arial", monospace;
 }
 
-#delete-news {
+.delete-news {
     font-size:20px;
     background-color: red;
 }
@@ -193,4 +193,10 @@ body {
 .data-cell {
     border: grey 1px solid;
     min-height:50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    min-width: 20px;
 }

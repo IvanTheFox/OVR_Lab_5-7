@@ -24,12 +24,22 @@ async function fetchUserById(id) {
     }
 }
 
+async function deleteNews(id) {
+    try {
+        const response = await fetch(`http://localhost:8089/deletenews/${id}`, {
+            method: 'POST'
+        });
+    } catch (error) {
+        console.error('Error during news upload:', error);
+        alert('Error during news upload.');
+    }
+}
+
 async function buildNews(news) {
     let author = await fetchUserById(news.author);
     let time = new Date(1000*news.publishTime);
     let imgHTML = "";
     let temp3 = document.createElement("div");
-    console.log(news);
     temp3.setAttribute("class","article");
     for (let pic of news.pictures){
         imgHTML+=`<img src="uploads/news_pictures/${pic}" alt="pic">`;
@@ -40,9 +50,10 @@ async function buildNews(news) {
                         <div class="new-description">
                             <b>${author.username}</b>
                             <p>${time.toLocaleString()}</p>`+
-                            '<p id="news-id" if="${user.permLevel>0}">'+`ID новости=${news.id}</p>+`+
+                            '<p class="news-id" if="${user.permLevel>0}">'+`ID новости=${news.id}</p>`+
+                            `<span name="id" class="hidden-id" hidden>${news.id}</span>`+
                         `</div>
-                        <div><button id="delete-news">Удалить новость</button></div>
+                        <div><button type="submit" class="delete-news">Удалить новость</button></div>
                     </div>
                 </div>
                 <div class="article-content">
@@ -65,8 +76,29 @@ async function showNews() {
         } else {
             j = await buildNews(result);
         }
-        console.log(j);
         if (flag) break;
     }
+    document.getElementById("loadmore-btn").addEventListener("click", async ()=>{
+        flag=false;
+        for (let i=0; i<5; i++) {
+            const result = await fetchNewsByPrev(j);
+            if (result === null) {
+                document.getElementById("loadmore-btn").disabled = true;
+                flag = true;
+            } else {
+                j = await buildNews(result);
+            }
+            if (flag) break;
+        }
+    });
+    
+    for (let btn of document.getElementsByClassName("delete-news")) {
+        btn.addEventListener("click",event => {
+            console.log(event);
+            console.log(event.currentTarget);
+            let id = event.currentTarget.parentElement.previousElementSibling.getElementsByClassName("hidden-id")[0].innerHTML;
+            deleteNews(id);
+            event.currentTarget.parentElement.parentElement.parentElement.parentElement.remove();
+        })
+    }
 }
-

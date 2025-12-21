@@ -1,5 +1,4 @@
 async function fetchUserById(id) {
-    console.log("Fetching user with id " + id)
     try {
         const response = await fetch(`http://localhost:8089/userinfobyid/${id}`); 
         if (!response.ok) {
@@ -29,7 +28,6 @@ async function fetchUserByName(name) {
 
 document.getElementById("get-user-byname").addEventListener("click", async ()=>{
     let user = await fetchUserByName(document.getElementById("username-id").value);
-    console.log(user)
     if(!user) return
     writeUser(user);
 });
@@ -41,22 +39,27 @@ document.getElementById("get-user-byid").addEventListener("click", async ()=>{
 });
 
 function writeUser(user) {
-    console.log(user)
     let container = document.getElementById("user-data");
     container.innerHTML=`<div class="data-cell">
-                    <span id="userid"><b>${user.id}</b></span>
+                    <span id="userid">${user.id}</span>
                 </div>
                 <div class="data-cell">
-                    <img id="orig-avatar" alt="pfp" src="/uploads/avatars/${user.avatar}">
+                    <img id="orig-avatar" alt="pfp" src="/uploads/avatars/${user.avatar}"><br>
                     <input type="file" id="avatar">
                 </div>
-                <input type="text" id="login" class="data-cell" value="${user.username}">
-                <input type="text" id="password" class="data-cell" value="${user.password}">
-                <select id="role" class="data-cell">
+                <div class="data-cell">
+                    <input type="text" id="login" value="${user.username}">
+                </div>
+                <div class="data-cell">
+                    <input type="text" id="password" value="${user.password}">
+                </div>
+                <div class="data-cell">
+                <select id="role">
                     <option value="0"${user.role=='User'?" selected":""}>Пользователь</option>
                     <option value="1"${user.role=='Moderator'?" selected":""}>Модератор</option>
                     <option value="2"${user.role=='Admin'?" selected":""}>Администратор</option>
                 </select>
+                </div>
                 <div class="data-cell" id="loginCount">
                     <span id="loginCountValue">${user.loginCount}</span>
                 </div>`;
@@ -80,7 +83,6 @@ document.getElementById("update-user").addEventListener("click", async ()=>{
 
         if (response.ok) {
             const result = await response.text();
-            console.log('File uploaded successfully:', result);
             document.getElementById("response-text").innerHTML=result;
         } else {
             console.error('File upload failed with status:', response.status);
@@ -91,12 +93,3 @@ document.getElementById("update-user").addEventListener("click", async ()=>{
         alert('Error during file upload.');
     }
 });
-
-async function tempfunc() {
-    let user = await fetchUserById(1);
-    console.log(user)
-    if(!user) return
-    writeUser(user);
-};
-
-tempfunc()

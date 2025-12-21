@@ -44,11 +44,22 @@ document.getElementById("get-edit-news").addEventListener("click", async ()=>{
     
 });
 
+let upload = document.getElementById("article-images");
+    upload.addEventListener("change",(event)=>{
+        if(event.target.files.length>5) {
+            document.getElementById("error-msg").innerHTML="Внимание, количество предоставленных файлов больше максимального(5)!";
+        } else {
+            document.getElementById("error-msg").innerHTML="";
+        }
+    });
+
 function updateUploadSizeCheck(loadedAmount){
     let upload = document.getElementById("article-images");
     upload.addEventListener("change",(event)=>{
         if(event.target.files.length>5-loadedAmount) {
             document.getElementById("error-msg").innerHTML="Внимание, количество предоставленных файлов больше максимального(5)!";
+        } else {
+            document.getElementById("error-msg").innerHTML="";
         }
     });
 }
