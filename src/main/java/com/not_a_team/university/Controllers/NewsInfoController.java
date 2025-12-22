@@ -19,7 +19,6 @@ import com.not_a_team.university.Services.NewsService;
 import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -118,18 +117,14 @@ public class NewsInfoController {
                 }
             }
         }
-       
 
         newsService.saveNews(news);
-
         return "Новость отредактирована!";
     }
 
     @PostMapping("/deletenews/{id}")
     public String postMethodName(@PathVariable("id") Long id) {
-        //TODO: process POST request
         newsService.deleteNewsById(id);
         return "deleted";
     }
-    
 }
