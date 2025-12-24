@@ -14,14 +14,32 @@ import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Класс для обработки редактирования данных пользователей
+ */
 @RestController
 public class ProfileEditorController {
     private UserService userService;
 
+    /**
+     * Конструктор, создающий объект-контроллер
+     * @param userService
+     */
     public ProfileEditorController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Обработчик запроса на перезапись данных пользователя
+     * @param session - активная сессия пользователя
+     * @param avatar - новый аватар
+     * @param id - идентификатор полтзователя
+     * @param name - новое имя пользователя
+     * @param password - новый пароль пользователя
+     * @param permLevel - новый уровень доступа пользователя
+     * @param loginCount - новое количество входов в аккаунт
+     * @return - результат перезаписи (в формате строки)
+     */
     @PostMapping("/editprofile")
     public String editProfile(HttpSession session, MultipartFile avatar, @RequestParam Long id, @RequestParam String name, @RequestParam String password, @RequestParam int permLevel, @RequestParam int loginCount) {
         Optional<User> _thisuser = userService.getUserBySession(session);

@@ -15,6 +15,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Класс, представляющий зарегистрированного пользователя
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -30,13 +33,31 @@ public class User {
     private String avatar;
     private int loginCount;
 
+    /**
+     * Базовый конструктор
+     */
     public User() {}
+
+    /**
+     * Конструктор с именем, паролем и ролью
+     * @param name - имя пользователя
+     * @param password - пароль пользователя
+     * @param role - роль пользователя
+     */
     public User(String name, String password, Role role) {
         this.name = name;
         this.password = password;
         this.role = role;
         this.sessions = new ArrayList<String>();
     }
+
+    /**
+     * Конструктор с именем, паролем, ролью и идентификатором активной сессии
+     * @param name - имя пользователя
+     * @param password - пароль пользователя
+     * @param role - роль пользователя
+     * @param sessionId - идентификатор активной сессии
+     */
     public User(String name, String password, Role role, String sessionId) {
         this.name = name;
         this.password = password;
@@ -45,6 +66,14 @@ public class User {
         
         this.addSesseion(sessionId);
     }
+
+    /**
+     * Конструктор с именем, паролем, ролью и активной сессией
+     * @param name - имя пользователя
+     * @param password - пароль пользователя
+     * @param role - роль пользователя
+     * @param session - активная сессия
+     */
     public User(String name, String password, Role role, HttpSession session) {
         this.name = name;
         this.password = password;
@@ -54,49 +83,48 @@ public class User {
         this.addSesseion(session.getId());
     }
     
-    // -- Setters & getters
-    // Id
     public Long getId() {
         return this.id;
     }
     public void setId(Long newId) {
         this.id = newId;
     }
-    // name
     public String getUsername() {
         return this.name;
     }
     public void setUsername(String newusername) {
         this.name = newusername;
     }
-    // Password
     public String getPassword() {
         return this.password;
     }
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
-    // Role
     public Role getRole() {
         return this.role;
     }
     public void setRole(Role role) {
         this.role = role;
     }
-    // Login count
     public int getLoginCount() {
         return this.loginCount;
     }
     public void setLoginCount(int loginCount) {
         this.loginCount = loginCount;
     }
-    // Avatar
     public String getAvatar() {
         return this.avatar;
     }
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    /**
+     * Метод установления аватара
+     * @param file - файл изображения
+     * @throws IOException - ошибка при сохранения файла на сервер
+     */
     public void setAvatar(MultipartFile file) throws IOException {
         if (this.avatar != null)
             FileService.deleteFile(avatarPath + this.avatar);
@@ -104,36 +132,67 @@ public class User {
         this.avatar = FileService.saveFile(file, avatarPath, fileName);
     }
 
-    // -- Session management
-    // Adding a new session
+    /**
+     * Метод добавления новой активной сессии
+     * @param sessionId - идентификатор сессии
+     */
     public void addSesseion(String sessionId) {
         if (!this.sessions.contains(sessionId)) {
             this.sessions.add(sessionId);
             loginCount++;
         }
     }
+
+    /**
+     * Метод добавления новой активной сессии
+     * @param session - сессия
+     */
     public void addSesseion(HttpSession session) {
         addSesseion(session.getId());
     }
-    // Look for a session
+    
+    /**
+     * Метод проверки наличия сессии
+     * @param sessionId - идентификатор сессии
+     * @return - наличие сессии
+     */
     public boolean findSession(String sessionId) {
         return this.sessions.contains(sessionId);
     }
+
+    /**
+     * Метод проверки наличия сессии
+     * @param session - сессия
+     * @return - наличие сессии
+     */
     public boolean findSession(HttpSession session) {
         return this.findSession(session.getId());
     }
-    // Logout from a session
+    
+    /**
+     * Метод удаления активной сессии
+     * @param sessionId - идентификатор сессии
+     * @throws NoSessionFound - ошибка при отсутствии такой сессии
+     */
     public void removeSession(String sessionId) throws NoSessionFound {
         if (this.sessions.contains(sessionId))
             this.sessions.remove(sessionId);
         else
             throw new NoSessionFound(sessionId);
     }
+
+    /**
+     * Метод удаления активной сессии
+     * @param session - сессия
+     * @throws NoSessionFound - ошибка при отсутствии такой сессии
+     */
     public void removeSession(HttpSession session) throws NoSessionFound {
         removeSession(session.getId());
     }
 
-    // Exceptions
+    /**
+     * Класс исключения отсутствия искомой сессии
+     */
     public class NoSessionFound extends Exception {
         public NoSessionFound(String sessionId) {
             super("Session with id <" + sessionId + "> could not be found");

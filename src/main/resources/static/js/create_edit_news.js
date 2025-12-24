@@ -1,7 +1,14 @@
+/**
+ * Обработка нажатия клавиши создания новых новостей
+ * @listens click
+ */
 document.getElementById("make-new-news").addEventListener("click",()=>{
     createNews();
 });
 
+/**
+ * Функция создания новостей
+ */
 async function createNews() {
     const fileInput = document.getElementById('article-images');
     const formData = new FormData();

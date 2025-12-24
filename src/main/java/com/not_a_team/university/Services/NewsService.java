@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.not_a_team.university.Entities.News;
@@ -14,28 +13,59 @@ import com.not_a_team.university.Repositories.NewsRepository;
 public class NewsService {
     private final NewsRepository newsRepository;
 
-    @Autowired
+    /**
+     * Конструктор сервиса
+     * @param newsRepository - репозитория новостей
+     */
     public NewsService(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
     }
 
-    // Manage news
+    /**
+     * Метод сохранения новости в репозиторий
+     * @param news - новость
+     */
     public void saveNews(News news) {
         newsRepository.save(news);
     }
+
+    /**
+     * Метод удаления новости из репозитория
+     * @param news - новость
+     */
     public void deleteNews(News news) {
         newsRepository.deleteById(news.getId());
     }
+    
+    /**
+     * Метод удаления новости из репозитория
+     * @param id - идентификатор новости
+     */
     public void deleteNewsById(Long id) {
         newsRepository.deleteById(id);
     }
-    // Get news
+
+    /**
+     * Метод получения новости по идентификатору
+     * @param id - идентификатор
+     * @return - новость
+     */
     public Optional<News> getNewsById(Long id) {
         return newsRepository.findById(id);
     }
+
+    /**
+     * Метод получения всех новостей
+     * @return - множество новостей
+     */
     public List<News> getAllNews() {
         return newsRepository.findAll();
     }
+
+    /**
+     * Метод получения последних опубликованных новостей
+     * @return - новости
+     */
     public Optional<News> getLatestNews() {
         Optional<News> latestNews = Optional.empty();
 
@@ -47,6 +77,12 @@ public class NewsService {
 
         return latestNews;
     }
+
+    /**
+     * Метод получения новостей, предшествующий текущим
+     * @param id - идентификатор текущих новостей
+     * @return - следующие новости
+     */
     public Optional<News> getPreviousNews(Long id) {
         Optional<News> _currentNews = getNewsById(id);
         if (_currentNews.isEmpty())

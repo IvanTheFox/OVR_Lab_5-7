@@ -13,14 +13,27 @@ import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Класс-контроллер для страницы редактирования новостей
+ */
 @Controller
 public class NewsController {
     private UserService userService;
 
+    /**
+     * Конструктор, создающий объект-контроллер
+     * @param userService - сервис для работы с пользователями
+     */
     public NewsController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Обработчик перехода на страницу редактирования новостей
+     * @param session - активная сессия пользователя
+     * @param model - модель для отображения динамической информации
+     * @return - вид новой страницы
+     */
     @GetMapping("/editarticle")
     public String editArticlePage(HttpSession session, Model model) {
         Optional<User> _user = userService.getUserBySession(session);

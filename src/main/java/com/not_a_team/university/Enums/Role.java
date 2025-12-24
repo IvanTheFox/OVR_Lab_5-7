@@ -1,5 +1,8 @@
 package com.not_a_team.university.Enums;
 
+/**
+ * Энумератор ролей пользователей
+ */
 public enum Role {
     User(0),
     Moderator(1),
@@ -14,6 +17,11 @@ public enum Role {
         return this.permLevel;
     }
 
+    /**
+     * Метод получения роли, соответствующей уровню доступа
+     * @param level - уровень доступа
+     * @return - роль
+     */
     public static Role getRoleFromPermLevel(int level) {
         for (Role role : Role.values()) {
             if (role.permLevel == level)

@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.util.Arrays;
 
+/**
+ * Класс для вывода компонентов веб-приложения
+ */
 @Configuration
 public class BeanLister {
     @Bean

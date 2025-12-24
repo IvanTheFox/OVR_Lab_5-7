@@ -1,3 +1,8 @@
+/**
+ * Функция получения пердыдущей новости для текущей
+ * @param {number} id_prev - идентификатор текущей новости
+ * @returns {Object} - предыдущая новость
+ */
 async function fetchNewsByPrev(id_prev) {
     try {
         const response = await fetch(`http://localhost:8089/prevnewsinfo/${id_prev}`);
@@ -11,6 +16,11 @@ async function fetchNewsByPrev(id_prev) {
     }
 }
 
+/**
+ * Функция получения информации о пользователе
+ * @param {number} id - идентификатор пользователя
+ * @returns {Object} - пользователь
+ */
 async function fetchUserById(id) {
     try {
         const response = await fetch(`http://localhost:8089/userinfobyid/${id}`); 
@@ -24,6 +34,10 @@ async function fetchUserById(id) {
     }
 }
 
+/**
+ * Функция удаления новостей
+ * @param {number} id - идентификатор новости
+ */
 async function deleteNews(id) {
     try {
         const response = await fetch(`http://localhost:8089/deletenews/${id}`, {
@@ -35,6 +49,11 @@ async function deleteNews(id) {
     }
 }
 
+/**
+ * Функция добавления новости на главную страницу
+ * @param {Object} news - новости
+ * @returns - идентификатор полследней новости
+ */
 async function buildNews(news) {
     let author = await fetchUserById(news.author);
     let time = new Date(1000*news.publishTime);
@@ -65,6 +84,9 @@ async function buildNews(news) {
     return news.id;
 }
 
+/**
+ * Функция добавления новостей на главную страницу
+ */
 async function showNews() {
     let j=-1;
     let flag=false;

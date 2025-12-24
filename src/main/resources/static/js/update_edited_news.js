@@ -1,7 +1,14 @@
+/**
+ * Обработка нажатия на кнопку изменения новостей
+ * @listens click
+ */
 document.getElementById("change-edit-news").addEventListener("click",()=>{
     updateNews();
 });
 
+/**
+ * Функция отправки серверу информации об изменениях новости
+ */
 async function updateNews() {
     const fileInput = document.getElementById('article-images');
     const formData = new FormData();

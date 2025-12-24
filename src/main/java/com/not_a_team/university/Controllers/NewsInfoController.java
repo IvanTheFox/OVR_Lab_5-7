@@ -20,17 +20,29 @@ import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
-
+/**
+ * Класс для обработки запросов, связанных с новостями
+ */
 @RestController
 public class NewsInfoController {
     private NewsService newsService;
     private UserService userService;
 
+    /**
+     * Конструктор, создающий объект-контроллер
+     * @param newsService - сервис для работы с новостями
+     * @param userService - сервис для работы с пользователями
+     */
     public NewsInfoController(NewsService newsService, UserService userService) {
         this.newsService = newsService;
         this.userService = userService;
     }
 
+    /**
+     * Обработчик запроса на получение информации о новости
+     * @param id - идентификатор новости
+     * @return - новость
+     */
     @GetMapping("/newsinfo/{id}")
     public ResponseEntity<News> getNewsInfo(@PathVariable("id") Long id) {
         Optional<News> news = newsService.getNewsById(id);
@@ -41,6 +53,12 @@ public class NewsInfoController {
             return ResponseEntity.notFound().build();
     }
 
+    /**
+     * Обработчик запроса на получение предыдущей новости для текущей
+     * @param session - активная сессия пользователя
+     * @param id - идентификатор текущей новости
+     * @return - предыдущая новость
+     */
     @GetMapping("/prevnewsinfo/{id}")
     public ResponseEntity<News> getPreviousNews(HttpSession session, @PathVariable("id") Long id) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -59,6 +77,15 @@ public class NewsInfoController {
             return ResponseEntity.notFound().build();
     }
 
+    /**
+     * Обработчик запроса на публикацию новости
+     * @param session - активная сессия пользователя
+     * @param files - изображения в новости
+     * @param existingFiles - уже сохранённые на сервере изображения в новости
+     * @param title - заголовок новости
+     * @param text - текст новости
+     * @return - успех публикации (в формате текста)
+     */
     @PostMapping(value = "/newnews", consumes = "multipart/form-data")
     public String publishNews(HttpSession session, @RequestParam Optional<List<MultipartFile>> files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -88,6 +115,16 @@ public class NewsInfoController {
         return "Новость опубликована!";
     }
 
+    /**
+     * Обработчик запроса на редактирование новости
+     * @param session - активная сессия пользователя
+     * @param newsId - идентификатор новости
+     * @param files - изображения в новости
+     * @param existingFiles - уже сохранённые на сервере изображения в новости
+     * @param title - заголовок новости
+     * @param text - текст новости
+     * @return - успех редактирования (в формате строки)
+     */
     @PostMapping(value = "/editnews", consumes = "multipart/form-data")
     public String editNews(HttpSession session, @RequestParam Long newsId, @RequestParam Optional<List<MultipartFile>> files, @RequestParam String[] existingFiles, @RequestParam String title, @RequestParam String text) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -122,6 +159,11 @@ public class NewsInfoController {
         return "Новость отредактирована!";
     }
 
+    /**
+     * Обработчик запроса на удаление новости
+     * @param id - идентификатор новости
+     * @return - результат удаления новости
+     */
     @PostMapping("/deletenews/{id}")
     public String postMethodName(@PathVariable("id") Long id) {
         newsService.deleteNewsById(id);

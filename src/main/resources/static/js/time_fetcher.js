@@ -1,3 +1,7 @@
+/**
+ * Функция для получения серверного времени
+ * @returns - серверное время
+ */
 async function getServerTime() {
     try {
         const response = await fetch('http://localhost:8089/getservertime'); 

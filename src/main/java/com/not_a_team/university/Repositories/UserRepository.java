@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.not_a_team.university.Entities.User;
 
+/**
+ * Класс, представляющий репозиторий пользователей
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);

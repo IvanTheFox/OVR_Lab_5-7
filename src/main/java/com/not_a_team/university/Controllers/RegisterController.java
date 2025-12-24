@@ -11,19 +11,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.not_a_team.university.Entities.User;
 import com.not_a_team.university.Enums.Role;
 import com.not_a_team.university.Misc.RegisterInfoChecker;
-import com.not_a_team.university.Repositories.UserRepository;
 import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Класс-контроллер для страницы регистрации
+ */
 @Controller
 public class RegisterController {
     private final UserService userService;
     
-    public RegisterController(UserRepository userRepository, UserService userService) {
+    /**
+     * Конструктор, создающий объект-контроллер
+     * @param userService - сервис для работы с пользователями
+     */
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Обработчик перехода на страницу регистрации
+     * @param session - активная сессия пользователя
+     * @return - вид новой страницы
+     */
     @GetMapping("/register")
     public String registerPage(HttpSession session) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -33,6 +44,15 @@ public class RegisterController {
         return "register";
     }
 
+    /**
+     * Обработчик запроса на регистрацию нового пользователя
+     * @param session - активная сессия пользователя
+     * @param model - модель для оторажения динамической информации
+     * @param username - введённое пользователем имя
+     * @param password - введённый пользователем пароль
+     * @param role - выбранная роль пользователя
+     * @return - вид новой страницы
+     */
     @PostMapping("/register")
     public String registerForm(HttpSession session, Model model, @RequestParam String username, @RequestParam String password, @RequestParam int role) {
         Optional<User> _user = userService.getUserBySession(session);

@@ -1,3 +1,8 @@
+/**
+ * Функция получения информации о новости по идентификатору
+ * @param {number} id - идентификатор
+ * @returns - новость
+ */
 async function fetchNewsById(id) {
     try {
         const response = await fetch(`http://localhost:8089/newsinfo/${id}`);
@@ -12,6 +17,10 @@ async function fetchNewsById(id) {
     }
 }
 
+/**
+ * Функция отображения новости в редакторе
+ * @param {Object} news - отображаемая новость
+ */
 async function buildNewsEditor(news){
     let article = document.getElementsByClassName("article-content")[0];
     let imagesHTML="";
@@ -27,6 +36,10 @@ async function buildNewsEditor(news){
         <input type="file" name="files" id="article-images" multiple required>`;
 }
 
+/**
+ * Обработка нажатия на кнопку загрузки новости
+ * @listens click
+ */
 document.getElementById("get-edit-news").addEventListener("click", async ()=>{
     let id=document.getElementById("news-id").value;
     let news = await fetchNewsById(id);
@@ -45,14 +58,22 @@ document.getElementById("get-edit-news").addEventListener("click", async ()=>{
 });
 
 let upload = document.getElementById("article-images");
-    upload.addEventListener("change",(event)=>{
-        if(event.target.files.length>5) {
-            document.getElementById("error-msg").innerHTML="Внимание, количество предоставленных файлов больше максимального(5)!";
-        } else {
-            document.getElementById("error-msg").innerHTML="";
-        }
-    });
+/**
+ * Обработка количества выбранных файлов
+ * @listens change
+ */
+upload.addEventListener("change",(event)=>{
+    if(event.target.files.length>5) {
+        document.getElementById("error-msg").innerHTML="Внимание, количество предоставленных файлов больше максимального(5)!";
+    } else {
+        document.getElementById("error-msg").innerHTML="";
+    }
+});
 
+/**
+ * Функция обработки количества выбранных файлов
+ * @param {number} loadedAmount - количество загруженных файлов
+ */
 function updateUploadSizeCheck(loadedAmount){
     let upload = document.getElementById("article-images");
     upload.addEventListener("change",(event)=>{

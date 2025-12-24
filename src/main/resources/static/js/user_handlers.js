@@ -1,3 +1,8 @@
+/**
+ * Функция получения информации о пользователе
+ * @param {number} id - идентификатор пользователя
+ * @returns {Object} - пользователь
+ */
 async function fetchUserById(id) {
     try {
         const response = await fetch(`http://localhost:8089/userinfobyid/${id}`); 
@@ -12,6 +17,11 @@ async function fetchUserById(id) {
     }
 }
 
+/**
+ * Функция получения информации о пользователе
+ * @param {string} name - имя пользователя
+ * @returns {Object} - пользователь
+ */
 async function fetchUserByName(name) {
     try {
         const response = await fetch(`http://localhost:8089/userinfobyname/${name}`); 
@@ -26,18 +36,30 @@ async function fetchUserByName(name) {
     }
 }
 
+/**
+ * Обработка нажатия на кнопку получения пользователя по имени
+ * @listens click
+ */
 document.getElementById("get-user-byname").addEventListener("click", async ()=>{
     let user = await fetchUserByName(document.getElementById("username-id").value);
     if(!user) return
     writeUser(user);
 });
 
+/**
+ * Обработка нажатия на кнопку получения пользователя по идентификатору
+ * @listens click
+ */
 document.getElementById("get-user-byid").addEventListener("click", async ()=>{
     let user = await fetchUserById(document.getElementById("username-id").value);
     if(!user) return
     writeUser(user);
 });
 
+/**
+ * Функция отправки изменений данных пользователя на сервер
+ * @param {Object} user - изменённый пользователь
+ */
 function writeUser(user) {
     let container = document.getElementById("user-data");
     container.innerHTML=`<div class="data-cell">
@@ -65,6 +87,10 @@ function writeUser(user) {
                 </div>`;
 }
 
+/**
+ * Обработка нажатия на кнопку обновления данных пользователя
+ * @listens click
+ */
 document.getElementById("update-user").addEventListener("click", async ()=>{
     const formData = new FormData();
     formData.append("id", document.getElementById("userid").innerHTML)

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.not_a_team.university.Entities.News;
 
+/**
+ * Класс, представляющий репозиторий новостей
+ */
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
     Optional<News> findById(Long id);

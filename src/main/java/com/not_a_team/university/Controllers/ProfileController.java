@@ -15,15 +15,27 @@ import com.not_a_team.university.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
-
+/**
+ * Класс-контроллер для страницы профиля
+ */
 @Controller
 public class ProfileController {
     private UserService userService;
 
+    /**
+     * Конструктор, создающий объект-контроллер
+     * @param userService - сервис для работы с пользователями
+     */
     public ProfileController(UserService userService) {
         this.userService = userService;
     }
     
+    /**
+     * Обработчик перехода на страницу профиля
+     * @param session - активная сессия пользователя
+     * @param model - модель для отображения динамической информации
+     * @return - вид новой страницы
+     */
     @GetMapping("/profile")
     public String profilePage(HttpSession session, Model model) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -36,6 +48,13 @@ public class ProfileController {
         return "profile";
     }
 
+    /**
+     * Обработчик запроса на установление аватара пользователем
+     * @param session - активная сессия пользователя
+     * @param model - модель для отображения динамической информации
+     * @param file - файл изображения аватара
+     * @return - вид новой страницы
+     */
     @PostMapping("/profile/upload")
     public String avatarUpload(HttpSession session, Model model, MultipartFile file) {
         Optional<User> _user = userService.getUserBySession(session);
@@ -54,6 +73,11 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
+    /**
+     * Обработчик запроса выхода из аккаунта
+     * @param session - активная сессия пользователя
+     * @return - вид новой страницы
+     */
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         Optional<User> _user = userService.getUserBySession(session);
